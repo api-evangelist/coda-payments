@@ -1,0 +1,125 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/codapay/integration-guides/testing-guide.md
+docs:
+- https://docs.coda.co/codapay/integration-guides/testing-guide.md
+- https://docs.coda.co/codapay/integration-guides/testing-guide/sandbox-testing-guide.md
+- https://docs.coda.co/codapay/integration-guides/testing-guide/payment-channel-testing-instructions.md
+- https://docs.coda.co/codapay/integration-guides/testing-guide/sandbox-configuration-and-production-configuration.md
+- https://docs.coda.co/codapay/getting-started/test-hosted-payment-page-api.md
+- https://docs.coda.co/codashop-and-distribution/integration-guides/test-api-integration.md
+- https://docs.coda.co/coda-webstore/web-store-integration-guides/test-api-integration.md
+- https://docs.coda.co/payout/integration-guides/getting-started/environments.md
+separation:
+  model: separate-hosts
+  note: >-
+    Coda separates test from live by hostname, not by key prefix. There is no documented
+    sk_test/sk_live style prefix; the same credential shape is issued separately for the
+    sandbox and production configurations in the Publisher Portal.
+environments:
+- api: Codapay Hosted Payment Page API
+  environment: sandbox
+  base_url_v1: https://sandbox.codapayments.com/airtime/api/restful/v1.0/Payment
+  base_url_v2: https://sandbox.codapayments.com/airtime/api/restful/v2.0/Payment
+- api: Codapay Hosted Payment Page API
+  environment: production
+  base_url_v1: https://airtime.codapayments.com/airtime/api/restful/v1.0/Payment
+  base_url_v2: https://airtime.codapayments.com/airtime/api/restful/v2.0/Payment
+- api: Codapay Direct Card API
+  environment: sandbox
+  base_url: https://tc-api-card-sandbox.codapayments.com/v1/
+  available: true
+- api: Codapay Direct Card API
+  environment: production
+  base_url: https://api-tc.codapayments.com/v1/
+  available: true
+- api: Codapay Refund API
+  environment: sandbox
+  base_url: null
+  available: false
+  note: Documented as "Coming soon" — refunds are production-only today.
+- api: Coda Payout API
+  environment: sandbox
+  base_url: https://payout.codapayments-staging.com/
+- api: Coda Payout API
+  environment: production
+  base_url: https://payout.codapayments.com
+configuration:
+  portal: https://portal.coda.co/
+  path: Publisher Portal > Products > Codapay > Sandbox/Production Configuration
+  configurable:
+  - Merchant & URL configuration (per country, with bulk edit)
+  - Backend API toggle
+  - USD Price Notification toggle
+  - Failed Notification toggle (receive failed and expired transaction callbacks)
+  - Complete notification URL (callback URL)
+  - Complete landing page URL (HTTP/HTTPS/deeplink), ATM pending and OTC pending landing URLs
+  - Coda payment page configuration (applies to payType 0, the channel selection page)
+  hosted_test_flow: https://portal.codapayments.com/integration/codapay/sandbox-testing
+simulators:
+  payment_simulator:
+    description: >-
+      A payment simulator in the Publisher Portal is required to test several channels;
+      after pressing Continue on the transaction a simulator page opens in a new tab where
+      the tester chooses the transaction status to simulate.
+    coverage: >-
+      Coda publishes a "list of simulator-supported payment channels" release note; per-channel
+      testing instructions state which channels are simulator-driven.
+    note: The detailed simulator guide sits behind the private (partner) documentation space.
+  sandbox_status_coverage:
+    description: >-
+      Not every Direct Card API charge status is reproducible in sandbox. Per the published
+      status reference, authorized, waiting_for_shopper_action, waiting_capture_approval,
+      succeeded and failed are supported in sandbox; processing, capture_initiated and
+      canceled are not.
+    source: https://docs.coda.co/codapay/references/direct-api-charge-statuses.md
+test_values:
+  note: >-
+    Published verbatim from the Payment Channel Testing Instructions page, which carries
+    per-country testing instructions for 254 channel rows. A representative sample is
+    recorded here; the live page is the source of truth and changes with the channel list.
+  cards:
+  - channel: Card Payments (Austria, United States of America, and other card markets)
+    use_case: success
+    card_number: '4242 4242 4242 4242'
+    expiry: any valid date
+    cvv: any 3-digit
+  - channel: Card Payments (all card markets)
+    use_case: decline
+    card_number: '4000 0000 0000 0002'
+    expiry: any valid date
+    cvv: any 3-digit
+  - channel: Card Payments Argentina
+    use_case: success
+    card_number: '4000 0003 2000 0021'
+    expiry: any valid date
+    cvv: any 3-digit
+  wallets_and_dcb:
+    description: >-
+      Non-card channels are tested with published test phone numbers, wallet accounts and
+      sandbox provider credentials listed per country/channel on the testing instructions
+      page (for example a PayPal sandbox personal account for PayPal Australia), or through
+      the Portal payment simulator.
+  digital_wallets:
+    description: >-
+      Google Pay / Apple Pay channels are tested on a real device or browser with the wallet
+      configured; the registered card is not charged.
+time_simulation:
+  test_clocks: false
+  note: >-
+    No test clock or time-travel facility is published. Time-dependent behaviour is exercised
+    through documented per-channel transaction expiry times.
+fixture_tooling:
+  cli: false
+  trigger_api: false
+  note: >-
+    No fixture/trigger CLI is published. Notifications are re-driven by asking the Codapay
+    support team to "renotify" a transaction (codapay_integration@coda.co).
+production_testing:
+  required: true
+  description: >-
+    Coda requires a production test with its team before go-live for Codashop, Coda Webstore
+    and Codapay integrations ("Production Test with Coda" is a mandatory launch step).
+  sources:
+  - https://docs.coda.co/codashop-and-distribution/steps-to-launch-your-title/step-5-production-test-with-coda.md
+  - https://docs.coda.co/coda-webstore/steps-to-launch-your-web-store/step-4-production-test-with-coda.md

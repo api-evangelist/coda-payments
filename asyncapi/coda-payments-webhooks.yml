@@ -1,0 +1,199 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/
+spec_type: none
+asyncapi_published: false
+note: >-
+  Coda Payments publishes no AsyncAPI document and no event-catalog spec. It does document
+  a real webhook/notification surface across four products, captured here. Probed
+  /asyncapi.yaml and /asyncapi.json alongside the OpenAPI probes on every Coda host on
+  2026-08-04 with no hit.
+docs:
+- https://docs.coda.co/codapay/hosted-payment-page-integration/get-notified-of-a-transaction-status-change.md
+- https://docs.coda.co/codapay/hosted-payment-page-integration/activate-post-notifications.md
+- https://docs.coda.co/codapay/hosted-payment-page-integration/fraud-and-chargeback-notifications.md
+- https://docs.coda.co/codapay/hosted-payment-page-integration/authorize-and-capture-a-payment-separately/auth-and-capture-notifications.md
+- https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/get-notified-of-a-charge-status-change.md
+- https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-alternative-payment-methods/transaction-status-notification.md
+- https://docs.coda.co/codapay/additional-features/refund-a-payment/get-notified-about-refund-status-changes.md
+- https://docs.coda.co/codapay/additional-features/saving-card-details-new-notification.md
+- https://docs.coda.co/codapay/archived-tokenization-api-2.0/webhooks-notification.md
+- https://docs.coda.co/codapay/recurring-payments-coming-soon/webhook-notifications.md
+- https://docs.coda.co/payout/integration-guides/api-reference/initiate-a-payout-request/notification.md
+- https://docs.coda.co/codapay/integration-guides/security-guidelines.md
+transport:
+  style: HTTP callback to a partner-configured URL
+  configuration: >-
+    Transaction "Complete Notification URL" (also called the Callback URL) is set per title
+    in the Publisher Portal under Products > Codapay > Sandbox/Production Configuration.
+    Direct Card API charges instead carry a per-request setting.webhook_url /
+    partner_webhook_url. Changes to portal URLs take effect immediately.
+  payload_style: >-
+    Hosted Payment Page notifications are query-string parameters appended to the callback
+    URL (TxnId, OrderId, TotalPrice, PaymentType, ResultCode, Checksum, and USDPrice when
+    USD Price Notification is enabled). Tokenization/Direct API notifications are JSON
+    event objects.
+  acknowledgement: >-
+    Coda expects the partner to respond with ResultCode=0 on success, or an error code
+    otherwise.
+  retries:
+    attempts: 3
+    interval: 5 minutes
+    on_exhaustion: an email alert is triggered
+  integrity:
+    mechanism: checksum parameter
+    payin_formula: MD5(txnId + apiKey + orderId + resultCode)
+    note: >-
+      Separate checksum formulas are published for save-card notifications (v2 payin only)
+      and for refund/chargeback notifications. Partners MUST validate the checksum before
+      processing a notification — Coda warns that an unprotected notification URL lets an
+      attacker fabricate payment transactions.
+    source: https://docs.coda.co/codapay/integration-guides/security-guidelines.md
+  subscription_management: >-
+    Transaction notifications are subscribed to in the Publisher Portal under
+    Team > Manage Access > "Transaction Notification".
+channels:
+- name: transaction-completion-notification
+  api: Codapay Hosted Payment Page API
+  direction: outbound-to-partner
+  trigger: transaction reaches Successful or Failed
+  optional_failure_delivery: >-
+    Failed and expired transaction notifications are delivered only when the "Failed
+    Notification" toggle is enabled in the portal configuration.
+  parameters:
+  - {name: TxnId, always: true, description: Coda transaction ID generated at initiation}
+  - {name: OrderId, always: true, description: The partner order ID passed at initiation}
+  - {name: TotalPrice, description: Transaction total}
+  - {name: PaymentType, description: Payment channel ID used}
+  - {name: ResultCode, description: 0 on success, otherwise a Codapay error code}
+  - {name: Checksum, description: MD5 integrity checksum}
+  - {name: USDPrice, description: Appended when USD Price Notification is enabled (currency 840)}
+- name: auth-and-capture-notification
+  api: Codapay Hosted Payment Page API / Hosted Components
+  direction: outbound-to-partner
+  trigger: authorization and capture state changes when auth and capture are performed separately
+- name: fraud-and-chargeback-notification
+  api: Codapay Hosted Payment Page API
+  direction: outbound-to-partner
+  trigger: fraud alert or chargeback raised on a transaction
+- name: save-card-notification
+  api: Codapay Hosted Payment Page API (v2 only)
+  direction: outbound-to-partner
+  trigger: a user adds or removes a saved payment method
+- name: charge-status-notification
+  api: Codapay Direct Card API
+  direction: outbound-to-partner
+  trigger: charge status change (authorization and capture)
+  configuration_field: setting.webhook_url / partner_webhook_url on the charge request
+- name: transaction-status-notification
+  api: Codapay Direct API for Alternative Payment Methods
+  direction: outbound-to-partner
+  trigger: transaction status change through the shopper's payment flow
+- name: refund-status-notification
+  api: Codapay Refund API
+  direction: outbound-to-partner
+  trigger: refund status change
+  description: >-
+    "Merchants can receive real-time event data by providing URL endpoints to receive Event
+    JSON Payloads via POST requests."
+- name: payout-notification
+  api: Coda Payout API
+  direction: outbound-to-partner
+  trigger: payout status change
+- name: subscription-notification
+  api: Codapay
+  direction: outbound-to-partner
+  note: No configuration required — Coda states the subscription notification URL needs no setup.
+- name: recurring-payments-webhooks
+  api: Codapay Recurring Payments
+  status: coming-soon
+  direction: outbound-to-partner
+event_catalog:
+  api: Codapay Tokenization API 2.0 (archived)
+  source: https://docs.coda.co/codapay/archived-tokenization-api-2.0/webhooks-notification/types-of-events.md
+  envelope: >-
+    Event object carrying the event type plus the affected shopper / token / charge object.
+  events:
+  - name: shopper.created
+    description: "Occurs whenever a shopper is created"
+  - name: charge.created
+    description: "Occurs whenever a charge is created"
+  - name: token.created
+    description: "Occurs whenever a token is created"
+  - name: shopper.status.active
+    description: "Occurs when a shopper status become active"
+  - name: shopper.status.inactive
+    description: "Occurs when a shopper status become inactive"
+  - name: charge.status.blocked_charge_limit_exceeded
+    description: "Occurs whenever charge amount limit exceeded"
+  - name: charge.status.blocked_risk
+    description: "Occurs when a charge is being blocked by risk"
+  - name: charge.status.failed
+    description: "Occurs whenever a charge failed"
+  - name: charge.status.failed_insufficient_balance
+    description: "Occurs when charge failed because of insufficient balance in the account"
+  - name: charge.status.failed_shopper_cancel
+    description: "Occurs when charge failed because shopper has canceled the transaction"
+  - name: charge.status.failed_token_cancelled
+    description: "Occurs when charge failed due to the cancellation of the associated token"
+  - name: charge.status.failed_token_declined
+    description: "Occurs when charge failed because the token used for the transaction has been declined"
+  - name: charge.status.failed_token_expired
+    description: "Occurs when charge failed because of token expiration"
+  - name: charge.status.failed_token_not_authorized
+    description: "Occurs when charge failed due to unauthorized token"
+  - name: charge.status.failed_unauthenticated
+    description: "Occurs when charge failed because of authentication"
+  - name: charge.status.waiting_for_shopper_action
+    description: "Occurs whenever charge is pending completion and await for shopper action"
+  - name: charge.status.processing_shopper_action
+    description: "Occurs whenever charge shopper action is being processed by Coda"
+  - name: charge.status.initiated
+    description: "Occurs whenever charge is in the process of being initiated"
+  - name: charge.status.initiated_accepted
+    description: "Occurs whenever charge initiation is successful and the Provider has accepted initiation"
+  - name: charge.status.initiated_not_accepted
+    description: "Occurs whenever charge initiation is unsuccessful and the Provider does not accept the initiation"
+  - name: charge.status.initiated_failed
+    description: "Occurs whenever charge initiation is failed"
+  - name: charge.status.not_initiated
+    description: "Occurs when charge is not being initiated on Provider end"
+  - name: charge.status.authorized
+    description: "Occurs whenever charge has been successfully authorized"
+  - name: charge.status.succeeded
+    description: "Occurs whenever charge is successful"
+  - name: charge.status.succeeded_for_subscription
+    description: "Occurs whenever charge is successful for subscription"
+  - name: token.status.not_initiated
+    description: "Occurs when token is not being initiated on Provider end"
+  - name: token.status.initiated
+    description: "Occurs whenever token is in the process of being initiated"
+  - name: token.status.initiated_failed
+    description: "Occurs whenever token initiation is failed"
+  - name: token.status.waiting_for_shopper_action
+    description: "Occurs whenever token is pending completion and await for shopper action"
+  - name: token.status.processing_shopper_action
+    description: "Occurs whenever token shopper action is being processed by Coda"
+  - name: token.status.not_authorized
+    description: "Occurs when token failed authorization process"
+  - name: token.status.authorized
+    description: "Occurs whenever token has been successfully authorized"
+  - name: token.status.expired
+    description: "Occurs whenever token has been expired"
+  - name: token.status.cancelled
+    description: "Occurs whenever token has been canceled"
+inbound_partner_endpoints:
+  note: >-
+    The Codashop and Coda Webstore fulfillment contract inverts the direction — Coda calls
+    endpoints the publisher hosts. These are documented as JSON-RPC 2.0 methods signed with
+    HMAC-SHA256.
+  methods:
+  - {method: validate, description: Verify that the player/user id exists before purchase}
+  - {method: topup, description: Deliver the purchased SKU into the game or app}
+  - {method: usersync, description: Synchronise user/player data with Coda}
+  - {method: fetch server list, description: Optional — return the server/zone list for the title}
+  source: https://docs.coda.co/codashop-and-distribution/integration-guides.md
+gaps:
+- No AsyncAPI or CloudEvents description of the event surface.
+- No published signing secret rotation or replay-window guidance beyond the checksum formulas.
+- Checksum uses MD5 rather than an HMAC over the raw body.

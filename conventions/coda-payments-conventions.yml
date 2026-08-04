@@ -1,0 +1,168 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/
+note: >-
+  Cross-cutting request/response semantics for the Coda Payments (Coda) APIs, read from
+  the published documentation. No OpenAPI is published, so nothing here is derived from
+  a machine-readable contract.
+transport:
+  protocol: HTTPS only
+  tls_minimum: TLS 1.2
+  content_type: application/json
+  style: >-
+    REST/JSON for Codapay Hosted Payment Page, Direct Card and Payout; JSON-RPC 2.0 for
+    the publisher-implemented Codashop / Coda Webstore fulfillment contract.
+  source: https://docs.coda.co/codapay/hosted-payment-page-integration/initiate-a-payment-request.md
+authentication:
+  see: authentication/coda-payments-authentication.yml
+  summary: >-
+    API key in the request body (Hosted Payment Page), Authorization + X-Api-Key +
+    X-Partner-Id headers (Direct Card API), JWT bearer + X-API-Key + x-signature
+    (Payout API), HMAC-SHA256 signature (Codashop fulfillment).
+idempotency:
+  supported: true
+  model: caller-supplied unique request identifier
+  keys:
+  - api: Coda Payout API
+    field: request_id
+    location: request body
+    requirement: >-
+      "A unique request ID that is attached to the payout request, created by Merchant.
+      Please note that this has to be idempotent." Allowed characters are alphanumeric,
+      hyphen and underscore.
+    source: https://docs.coda.co/payout/integration-guides/api-reference/initiate-a-payout-request.md
+  - api: Codapay Direct Card API
+    field: partner_reference
+    location: request body
+    requirement: >-
+      "Unique identifier provided by the partner for the charge" — required on every
+      charge; duplicate submissions are rejected with the DUPLICATE_TRANSACTION error
+      code ("A transaction with the same details has already been processed. Check for
+      duplicate transactions and avoid resubmitting the same request.").
+    source: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/submit-a-charge.md
+  - api: Codapay Hosted Payment Page API
+    field: initRequest.orderId
+    location: request body
+    requirement: >-
+      "Your unique identifier for the transaction. Must be between 4 to 64 characters."
+      Returned on every notification and inquiry so the partner can reconcile without
+      creating a second transaction.
+    source: https://docs.coda.co/codapay/hosted-payment-page-integration/initiate-a-payment-request.md
+  duplicate_signals:
+  - code: DUPLICATE_TRANSACTION
+    surface: Direct API charge error codes
+  - code: '430'
+    meaning: This error occurs when there is a duplicate charge request.
+  - code: '551'
+    meaning: Duplicated refund request — the refund was already requested for the transaction.
+  retention: not published
+  header_based_key: false
+  note: >-
+    Coda does not publish an Idempotency-Key HTTP header. Idempotency is contractual and
+    body-level: the caller supplies a unique request_id / partner_reference / orderId and
+    Coda rejects repeats. Agents must generate and persist that identifier before the
+    first attempt and reuse it verbatim on retry.
+pagination:
+  supported: false
+  note: >-
+    The documented API surface is transaction-scoped (initiate, inquire by transaction
+    id, charge by id, refund by transaction id). No list/collection endpoints and no
+    pagination parameters are published; bulk transaction data is delivered through
+    Publisher Portal reports and FTP/SFTP transaction report delivery instead.
+  source: https://docs.coda.co/coda-portal/key-features/coda-transaction-report-delivery-options.md
+field_expansion:
+  supported: false
+metadata:
+  supported: true
+  fields:
+  - api: Codapay Direct Card API
+    field: partner_custom_data
+    description: >-
+      "Custom data provided by the partner, stored and returned as part of the charge
+      object." Free-form JSON object.
+    source: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/submit-a-charge.md
+  - api: Coda Payout API
+    field: reference
+    description: Free-text reference up to 255 characters, shown to the beneficiary where the payment method allows.
+  - api: Codapay Hosted Payment Page API
+    field: initRequest.profile.entry[]
+    description: >-
+      Key/value profile entries carrying user_id (mandatory), plus optional email,
+      client_ip, lang_code, return_url, in_frame_redirect and need_mno_id.
+request_tracing:
+  request_id_header: not published
+  correlation_ids:
+  - txnId — 19-digit Coda transaction id returned by init and echoed on every notification
+  - charge id — Coda's unique identifier for a Direct Card API charge
+  - orderId / partner_reference / request_id — the partner-side identifier
+versioning:
+  scheme: uri-path
+  current: v2.0
+  versions:
+  - version: v1.0
+    status: supported
+    base: https://airtime.codapayments.com/airtime/api/restful/v1.0/Payment
+    notes: One API key per title-country combination; no projectId; no saved-card support.
+  - version: v2.0
+    status: recommended
+    base: https://airtime.codapayments.com/airtime/api/restful/v2.0/Payment
+    notes: Global API key per merchant, mandatory projectId, saved-card support.
+  direct_card_api: v1 path prefix (https://api-tc.codapayments.com/v1/)
+  source: https://docs.coda.co/codapay/integration-guides/codapay-api-versions.md
+error_envelope:
+  hosted_payment_page:
+    shape: '{"initResult": {"resultCode": <int>, "resultDesc": "<string>", "txnId": <int>}}'
+    success_signal: resultCode == 0
+    failure_signal: resultCode != 0 and txnId == 0
+    catalog: errors/coda-payments-error-codes.yml
+  direct_card_api:
+    shape: charge object carrying a status plus a Codapay error code string
+    failure_codes: errors/coda-payments-decline-codes.yml
+  rfc9457: false
+  problem_json: false
+  note: >-
+    Coda does not use application/problem+json. Payin errors are numeric resultCodes
+    (254 published values); Direct Card API errors are SCREAMING_SNAKE_CASE strings.
+rate_limits:
+  published_limits: none
+  signals:
+  - code: '492'
+    meaning: Request failed due to too many requests.
+  - code: '452'
+    meaning: Reached maximum attempts to create the transaction with the selected payment channel.
+  - code: '725'
+    meaning: Card exceeded its daily attempt limit.
+  - code: '726'
+    meaning: IP address from the credit card exceeded its daily attempt limit.
+  headers: none published
+  note: No numeric rate limit, quota or Retry-After header is documented.
+webhooks:
+  see: asyncapi/coda-payments-webhooks.yml
+  delivery: >-
+    HTTP callback to the partner's configured Transaction Completion Notification URL.
+    Coda expects an acknowledgement of ResultCode=0; if no response is received the
+    notification is re-sent 3 times at 5-minute intervals, after which an email alert
+    is triggered.
+  integrity: MD5 checksum over txnId + apiKey + orderId + resultCode (payin)
+  source: https://docs.coda.co/codapay/hosted-payment-page-integration/get-notified-of-a-transaction-status-change.md
+money:
+  amount_representation:
+  - api: Codapay Direct Card API
+    field: amount_value
+    unit: smallest currency unit (cents)
+  - api: Codapay Hosted Payment Page API
+    field: items[].price
+    unit: major currency unit, decimals rejected on some channels (error 203)
+  currency: ISO 4217 (numeric code on Hosted Payment Page, alpha code on Direct Card API)
+  country: ISO 3166
+  tax: >-
+    Where Coda is Merchant of Record in a supported tax market (currently the US), the
+    v2.0 isTaxInclusiveAmount flag controls whether the item total is treated as
+    tax-inclusive; a Calculate Tax endpoint returns the tax breakdown and updated price.
+cross_links:
+  errors: errors/coda-payments-error-codes.yml
+  decline_codes: errors/coda-payments-decline-codes.yml
+  lifecycle: lifecycle/coda-payments-lifecycle.yml
+  authentication: authentication/coda-payments-authentication.yml
+  sandbox: sandbox/coda-payments-sandbox.yml
+  webhooks: asyncapi/coda-payments-webhooks.yml

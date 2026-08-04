@@ -1,0 +1,796 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/codapay/error-codes.md
+docs:
+- https://docs.coda.co/codapay/error-codes.md
+- https://docs.coda.co/codapay/references/direct-api-charge-error-codes.md
+- https://docs.coda.co/codashop-and-distribution/codashop-appendix/codashop-error-codes.md
+- https://docs.coda.co/coda-webstore/coda-webstore-appendix/web-store-error-codes.md
+format: proprietary-numeric
+rfc9457: false
+envelope:
+  api: Codapay Hosted Payment Page API
+  field: initResult.resultCode
+  success_value: 0
+  description_field: initResult.resultDesc
+  shape: '{"initResult": {"resultCode": <int>, "resultDesc": "<string>", "txnId": <int>}}'
+support_contact: codapay_integration@coda.co
+code_count: 254
+bands:
+  1-151: Coda internal / unknown errors
+  201-254: request, parameter and transaction-state errors
+  301-319: risk, blacklist and fraud decisions
+  350-368: subscription errors
+  401-494: payment channel / mobile operator errors
+  501-504: merchant and user limit errors
+  511-513: customer account errors
+  551-556: refund errors
+  601-607: voucher / cash card errors
+  700-752: card payment errors
+  809-1100: catalog and SKU errors
+  901-953: SMS and carrier delivery errors
+  970-999: tokenized charge states
+  1001-1301: account state and channel configuration errors
+problems:
+- code: '1'
+  category: coda-internal
+  description: "General unknown error a. Payment channel error not existing/mapped on Coda system b. The Coda system did not receive a successful/valid response from the payment channel"
+- code: '101'
+  category: coda-internal
+  description: "This error indicates that there's an internal error from Coda's side."
+- code: '102'
+  category: coda-internal
+  description: "This error indicates that there's an internal connection error from Coda's side."
+- code: '103'
+  category: coda-internal
+  description: "A parameter in the request message sent to Coda is incorrect. Please check your parameters or send your transaction logs to Coda's technical support team for investigation."
+- code: '104'
+  category: coda-internal
+  description: "This error indicates that there's an internal error from Coda's side."
+- code: '151'
+  category: coda-internal
+  description: "This error occurs when there is an unknown error."
+- code: '201'
+  category: request-and-transaction
+  description: "This error occurs when there is an unknown error from the payment channel's side."
+- code: '202'
+  category: request-and-transaction
+  description: "This error occurs during an integration when one of the parameters indicated in the Merchant's API request to Coda is incorrect. Please contact our technical team for support."
+- code: '203'
+  category: request-and-transaction
+  description: "Occurs when the charge amount submitted by the merchant includes a decimal. (i.e. Rp. 5000.99)."
+- code: '204'
+  category: request-and-transaction
+  description: "Your API key or URLs have not yet been registered in Coda\u2019s system."
+- code: '205'
+  category: request-and-transaction
+  description: "This error occurs when a merchant's sandbox system points to Coda's production system, but the status in Coda's production system is still \"Testing\". In this case, the merchant should change their airtime URL to the sandbox URL and continue testing. This error also occurs when a merchant's production system points to Coda's production system, but the merchant account is not active in Coda's production system. In this case, the merchant should contact Coda to activate their account."
+- code: '206'
+  category: request-and-transaction
+  description: "During testing, this error occurs when the merchant calls Coda's Init() method from their sandbox environment, but then makes an Airtime_Checkout() Javascript call to Coda's production environment using the transaction ID that was generated in the sandbox service environment. When in production, this error occurs when the merchant calls Coda's Init() method, but then does not make an Airtime_Checkout() Javascript call within 15 minutes and the transaction ID expires."
+- code: '207'
+  category: request-and-transaction
+  description: "This occurs when there is an error in the transaction update."
+- code: '208'
+  category: request-and-transaction
+  description: "This occurs when the transaction status is invalid."
+- code: '209'
+  category: request-and-transaction
+  description: "This occurs when the status is pending in user action/server response, There is nothing wrong with this transaction."
+- code: '210'
+  category: request-and-transaction
+  description: "This occurs when the user cancels the payment on our page, There is nothing wrong with this transaction."
+- code: '211'
+  category: request-and-transaction
+  description: "This occurs when a user\u2019s transaction expires before they respond with the correct OTP."
+- code: '212'
+  category: request-and-transaction
+  description: "The transaction completion URL that you provided to Coda is not valid (i.e. there is a problem with the format) or has not yet been registered."
+- code: '213'
+  category: request-and-transaction
+  description: "This error occurs when a customer initiates a transaction but does not complete it by responding with the correct OTP during the session time (for DCB) or paying at a store (bank or convenience store). Hence, it's counted as an expired transaction."
+- code: '214'
+  category: request-and-transaction
+  description: "The format or value of your request to Coda is invalid."
+- code: '215'
+  category: request-and-transaction
+  description: "This error indicates that the SMS has already been sent to the customer."
+- code: '216'
+  category: request-and-transaction
+  description: "This error occurs when a customer initiates a transaction, and enters their mobile number, but does not reply with an OTP. For ATM and OTC transactions, this error can be ignored: it only indicates that the transaction has been initiated but not yet completed (there is no problem with the transaction)."
+- code: '217'
+  category: request-and-transaction
+  description: "This error occurs when a user initiates a transaction using an MSISDN with which a transaction has been initiated but not yet completed within the previous 5 minutes."
+- code: '218'
+  category: request-and-transaction
+  description: "This error occurs when a user initiates a transaction using the same IP address with which a transaction has been initiated but not yet completed within the previous 5 minutes."
+- code: '219'
+  category: request-and-transaction
+  description: "This error occurs when there's a database error."
+- code: '220'
+  category: request-and-transaction
+  description: "The country code and/or currency code that you filed is not valid."
+- code: '221'
+  category: request-and-transaction
+  description: "This error indicates that the transaction has already been canceled."
+- code: '222'
+  category: request-and-transaction
+  description: "This error occurs when the customer attempts to enter an incorrect OTP too many times."
+- code: '223'
+  category: request-and-transaction
+  description: "This error occurs when the customer enters an invalid OTP"
+- code: '224'
+  category: request-and-transaction
+  description: "This error occurs when the user has manually blocked their account in the customer portal."
+- code: '225'
+  category: request-and-transaction
+  description: "This error occurs during an integration when a payment channel is being tested but has not yet been activated in our system. Please contact our technical team for support."
+- code: '226'
+  category: request-and-transaction
+  description: "This error occurs when a user has entered an invalid mobile number. Please contact our technical team for support."
+- code: '227'
+  category: request-and-transaction
+  description: "This error occurs when the customer attempts to complete a purchase at a price point that Coda has not registered with a particular telco. Please contact Coda's technical support team for a list of available price points."
+- code: '228'
+  category: request-and-transaction
+  description: "This error occurs when the transaction session times out but the payment channel receives a successful transaction. Contact our support team for more information."
+- code: '229'
+  category: request-and-transaction
+  description: "This error occurs when the transaction session times out before a response from the telco is received to the charge request."
+- code: '230'
+  category: request-and-transaction
+  description: "Transaction expired but failed from Operator side."
+- code: '231'
+  category: request-and-transaction
+  description: "Transaction already marked as completed, cannot be processed again."
+- code: '232'
+  category: request-and-transaction
+  description: "Occurs when a customer initiates a new transaction that in turn cancels the previous one (this one)."
+- code: '233'
+  category: request-and-transaction
+  description: "This error occurs during integration when a merchant implements Coda's payment channel selection page (Paytype = 0), but has not yet configured it Coda Portal Please ensure these steps has been completed 1. Payment Channel e-annex has been approved (Coda Portal > Payment Method) 2. Payment Channel Selection Page configuration has been completed (Coda Portal > Codapay > Production Configuration > Edit > Coda Payment Page Configuration"
+- code: '234'
+  category: request-and-transaction
+  description: "Received unsupported operation from the payment channel."
+- code: '235'
+  category: request-and-transaction
+  description: "This error occurs when you are using our backend API and we haven't enabled it on our end. Please contact our support team."
+- code: '236'
+  category: request-and-transaction
+  description: "The transaction does not belong to the merchant."
+- code: '237'
+  category: request-and-transaction
+  description: "This error occurs when the user_id parameter is missing in the init request. For more details please refer to Profile Fields"
+- code: '238'
+  category: request-and-transaction
+  description: "This error occurs when our USD conversion system is down."
+- code: '239'
+  category: request-and-transaction
+  description: "This error occurs when there is an error in the checksum validation."
+- code: '240'
+  category: request-and-transaction
+  description: "Occurs when the phone number of a carrier billing that is entered on the payment page is a different type of carrier billing selected by the customer"
+- code: '241'
+  category: request-and-transaction
+  description: "This error occurs when the transaction is older than 3 months and cannot proceed with the payment."
+- code: '242'
+  category: request-and-transaction
+  description: "This error occurs when a payment channel doesn't support desktop devices. Please advise the user to make the payment using a mobile device."
+- code: '243'
+  category: request-and-transaction
+  description: "This error occurs when the token is expired."
+- code: '244'
+  category: request-and-transaction
+  description: "This error occurs when the application is updating."
+- code: '245'
+  category: request-and-transaction
+  description: "Occurs when the KYC is not completed."
+- code: '246'
+  category: request-and-transaction
+  description: "Occurs when the account is not found on the payment channel's side."
+- code: '247'
+  category: request-and-transaction
+  description: "Occurs when the customer is not eligible to make the transaction to the payment channel."
+- code: '248'
+  category: request-and-transaction
+  description: "Invalid CPF, please verify your date of birth and CPF number."
+- code: '249'
+  category: request-and-transaction
+  description: "Invalid CNPJ, please verify your CNPJ number."
+- code: '250'
+  category: request-and-transaction
+  description: "Different name from the federal revenue register of natural persons."
+- code: '251'
+  category: request-and-transaction
+  description: "The return URL provided is invalid."
+- code: '252'
+  category: request-and-transaction
+  description: "Return URL exceeds allowed length or limit."
+- code: '253'
+  category: request-and-transaction
+  description: "General processing error, unspecified failure."
+- code: '254'
+  category: request-and-transaction
+  description: "The transaction was closed since the user has clicked back on their browser, and will not be able to resume."
+- code: '301'
+  category: risk-and-blocklist
+  description: "Occurs when the blacklist does not exist."
+- code: '309'
+  category: risk-and-blocklist
+  description: "One or more parameters included in this transaction have been blacklisted."
+- code: '310'
+  category: risk-and-blocklist
+  description: "One or more parameters included in this transaction have been blacklisted."
+- code: '311'
+  category: risk-and-blocklist
+  description: "One or more parameters included in this transaction have been blacklisted."
+- code: '312'
+  category: risk-and-blocklist
+  description: "This error occurs when a transaction violates one or more risk rules. In this case, merchants should advise customers to contact Coda for more information. This also means that the payment channel is down at the moment. Please check with our Support team."
+- code: '313'
+  category: risk-and-blocklist
+  description: "Occurs when the device ID has been blacklisted."
+- code: '314'
+  category: risk-and-blocklist
+  description: "One or more parameters included in this transaction have been blacklisted."
+- code: '315'
+  category: risk-and-blocklist
+  description: "One or more parameters included in this transaction have been blacklisted."
+- code: '316'
+  category: risk-and-blocklist
+  description: "Customer user IDs have been blacklisted. Please advise the customer to send an email to fraud@codashop.com requesting removal from the blacklist."
+- code: '319'
+  category: risk-and-blocklist
+  description: "This transaction was automatically declined by the Coda risk management system. Please contact our Support team for further information."
+- code: '350'
+  category: subscription
+  description: "The Subscription Plan ID field was empty in the request message. This field is mandatory for subscription requests."
+- code: '351'
+  category: subscription
+  description: "The Subscription Plan does not exist."
+- code: '352'
+  category: subscription
+  description: "The phone number is already subscribed to this plan. Only one subscription per number is allowed."
+- code: '353'
+  category: subscription
+  description: "The phone number is already subscribed to another plan. Only one subscription per merchant is allowed."
+- code: '354'
+  category: subscription
+  description: "Invalid subscription plan keyword."
+- code: '355'
+  category: subscription
+  description: "There is no subscription linked to the phone number in the request."
+- code: '356'
+  category: subscription
+  description: "The mobile number already unsubscribed from this plan"
+- code: '357'
+  category: subscription
+  description: "The mobile number already unsubscribed from this plan"
+- code: '358'
+  category: subscription
+  description: "Invalid MO for the subscription plan."
+- code: '359'
+  category: subscription
+  description: "The subscription you tried to access is not linked to your merchant account."
+- code: '360'
+  category: subscription
+  description: "The price in your request message does not match the price defined on the subscription plan."
+- code: '361'
+  category: subscription
+  description: "This payment channel currently does not support subscription payments."
+- code: '362'
+  category: subscription
+  description: "The subscription payments return an invalid status."
+- code: '363'
+  category: subscription
+  description: "The subscription payments could not verify the VPA."
+- code: '364'
+  category: subscription
+  description: "The subscription session token has expired."
+- code: '365'
+  category: subscription
+  description: "The payment channel does not support subscriptions."
+- code: '367'
+  category: subscription
+  description: "Invalid subscription token."
+- code: '368'
+  category: subscription
+  description: "The attempt to retry the renewal subscription has been exceeded."
+- code: '401'
+  category: payment-channel
+  description: "This message will be displayed when a user attempts to complete a transaction using an MSISDN from a mobile operator with whom Coda is not connected."
+- code: '402'
+  category: payment-channel
+  description: "This message will be displayed when a user attempts to complete a transaction using an MSISDN from a mobile operator with whom Coda is not connected."
+- code: '403'
+  category: payment-channel
+  description: "Coda\u2019s attempt to file a charge with a mobile operator failed for a technical reason. For True it's a general error that can mean the Voucher was USED, the Voucher was suspended, the Voucher was not found, the Voucher LOCKED, Duplicated Voucher was used."
+- code: '404'
+  category: payment-channel
+  description: "Coda\u2019s attempt to connect to the mobile operator failed."
+- code: '405'
+  category: payment-channel
+  description: "The mobile operator with whom Coda filed a charge request could not validate the MSISDN that was submitted as part of the transaction. This likely occurs when the customer enters a MSISDN with a correct prefix but incorrect length."
+- code: '406'
+  category: payment-channel
+  description: "Occurs when the payment channel returns invalid integration information."
+- code: '407'
+  category: payment-channel
+  description: "Occurs when the payment channel with whom Coda filed the transaction has a technical error."
+- code: '408'
+  category: payment-channel
+  description: "This error occurs when a user has entered an invalid parameter. Please contact our technical team for support."
+- code: '409'
+  category: payment-channel
+  description: "This error occurs when the payment channel returns an error from Coda's side."
+- code: '410'
+  category: payment-channel
+  description: "The mobile operator with whom Coda filed a charge request could not validate a parameter included in the transaction. For Maxis transactions, this means the MSISDN is from a different telco."
+- code: '411'
+  category: payment-channel
+  description: "This error occurs when a merchant's name has not yet been registered on the Payment Channel system. Please contact our technical team for support."
+- code: '412'
+  category: payment-channel
+  description: "This error occurs when Coda files a transaction with a mobile operator, but is informed that the mobile operator has an internal error."
+- code: '413'
+  category: payment-channel
+  description: "Transaction not found or does not exist"
+- code: '414'
+  category: payment-channel
+  description: "The customer who initiated the transaction did not have sufficient balance on the MSISDN that they entered at the time of the transaction."
+- code: '415'
+  category: payment-channel
+  description: "The value of the transaction attempted by the customer exceeded the value of a limit associated with their account. Alternatively, the transaction amount is not within the limits allowed for the payment channel, for example, ATM Transfer and Alfamart transactions in Indonesia have a minimum amount of Rp. 50.000."
+- code: '416'
+  category: payment-channel
+  description: "The customer who initiated the transaction would not have had the required Rp. 1500 minimum balance remaining after the purchase was completed. No charge was made."
+- code: '417'
+  category: payment-channel
+  description: "The MSISDN entered by the customer has churned or is expired."
+- code: '418'
+  category: payment-channel
+  description: "The customer entered a postpaid MSISDN from a mobile operator that does not authorize postpaid transactions."
+- code: '419'
+  category: payment-channel
+  description: "The mobile operator with whom Coda filed a charge request could pass the second validation of a parameter included in the transaction."
+- code: '420'
+  category: payment-channel
+  description: "The number could not be charged as it is blocked by the operator."
+- code: '421'
+  category: payment-channel
+  description: "This error occurs when the transaction does not pass the authorization to charge from the payment channel."
+- code: '422'
+  category: payment-channel
+  description: "This error occurs when there is a duplicated authorization for the transaction under the payment channel."
+- code: '423'
+  category: payment-channel
+  description: "This error occurs when the payment channel returns a service overload error from their system."
+- code: '424'
+  category: payment-channel
+  description: "This error occurs when the payment channel fails to return the complete transaction notification to Coda."
+- code: '425'
+  category: payment-channel
+  description: "This error occurs when the customer enters a prepaid mobile number, but their mobile operator does not authorize prepaid customers to use the service."
+- code: '426'
+  category: payment-channel
+  description: "The payment channel is unable to process this transaction due to a capacity constraint."
+- code: '427'
+  category: payment-channel
+  description: "This error occurs when the new subscriber is not allowed."
+- code: '428'
+  category: payment-channel
+  description: "The number could not be charged as it is expired, in the grace period, or otherwise blocked by the operator."
+- code: '429'
+  category: payment-channel
+  description: "This error occurs when a customer initiates a transaction at an amount that is not supported by their telco."
+- code: '430'
+  category: payment-channel
+  description: "This error occurs when there is a duplicate charge request."
+- code: '431'
+  category: payment-channel
+  description: "Occurs when the customer initiates an ATM/Alfamart transaction and we are waiting for them to complete it at the ATM. This error can be ignored: it only indicates that the transaction has been initiated but not yet completed (there is no problem with the transaction)."
+- code: '432'
+  category: payment-channel
+  description: "This error occurs when the transaction does not pass the pre-risk rule check from the payment channel."
+- code: '433'
+  category: payment-channel
+  description: "The customer sent Coda their first confirmation MO (i.e. PAY X) but not the second (i.e. GO)."
+- code: '434'
+  category: payment-channel
+  description: "The customer did not respond to the confirmation of MO (i.e. PAY X)."
+- code: '435'
+  category: payment-channel
+  description: "This error occurs when the payment charge is still in progress."
+- code: '436'
+  category: payment-channel
+  description: "This error happens when the amount the customer tries to pay does not match the amount on the transaction."
+- code: '437'
+  category: payment-channel
+  description: "This error indicates that the customer responded with an invalid MO."
+- code: '438'
+  category: payment-channel
+  description: "This error means that the transactions have expired. There is nothing wrong with this transaction."
+- code: '439'
+  category: payment-channel
+  description: "This error means that the customer pays less amount for the transaction."
+- code: '440'
+  category: payment-channel
+  description: "Occurs when there is a technical error with the telco billing system."
+- code: '441'
+  category: payment-channel
+  description: "Occurs when the telco authorization is not supported by the payment channel."
+- code: '442'
+  category: payment-channel
+  description: "Occurs when the customer's MO MSISDN is not matched with the transaction MSISDN."
+- code: '443'
+  category: payment-channel
+  description: "The customer's MSISDN has exceeded their prepaid or postpaid service limit. This error is returned for the DCB type of payment channel."
+- code: '444'
+  category: payment-channel
+  description: "The customer entered an account/phone number that the payment channel doesn't recognize"
+- code: '445'
+  category: payment-channel
+  description: "Occurs when the chosen payment method by the customer is not allowed by the payment channel."
+- code: '446'
+  category: payment-channel
+  description: "Occurs when the MSISDN entered by the customer is not allowed."
+- code: '447'
+  category: payment-channel
+  description: "Temporary issue, please retry the request later."
+- code: '451'
+  category: payment-channel
+  description: "The selected payment channel is not registered with the payment service provider."
+- code: '452'
+  category: payment-channel
+  description: "Reach maximum attempt to create the transaction with the selected payment channel."
+- code: '453'
+  category: payment-channel
+  description: "Occurs when the words do not match."
+- code: '454'
+  category: payment-channel
+  description: "Failed to notify the payment channel."
+- code: '455'
+  category: payment-channel
+  description: "Occurs when re-entering the transaction."
+- code: '456'
+  category: payment-channel
+  description: "The payment code has expired."
+- code: '457'
+  category: payment-channel
+  description: "The transaction with the selected payment channel has been canceled by the user."
+- code: '458'
+  category: payment-channel
+  description: "The transaction with the following payment code has not been paid by the customer."
+- code: '459'
+  category: payment-channel
+  description: "The transaction is rejected by the fraud system of the payment channel."
+- code: '460'
+  category: payment-channel
+  description: "The transaction has a duplicated PNR number."
+- code: '461'
+  category: payment-channel
+  description: "There's an error in parsing the XML."
+- code: '462'
+  category: payment-channel
+  description: "Occurs when the customer stops at the secure page."
+- code: '463'
+  category: payment-channel
+  description: "The transaction is declined by the payment channel."
+- code: '464'
+  category: payment-channel
+  description: "Occurs when the quick code that is required by the payment channel is invalid."
+- code: '465'
+  category: payment-channel
+  description: "This error occurs when the amount the customer attempts to pay differs from the transaction amount."
+- code: '466'
+  category: payment-channel
+  description: "Occurs when the currency code needed by the payment channel is invalid."
+- code: '467'
+  category: payment-channel
+  description: "Occurs when the customer enters an invalid payee ID that is required by the payment channel."
+- code: '468'
+  category: payment-channel
+  description: "Occurs when the customer enters an invalid customer ID that is required by the payment channel."
+- code: '469'
+  category: payment-channel
+  description: "Occurs when the quick code that is required by the payment channel is missing."
+- code: '470'
+  category: payment-channel
+  description: "Occurs when the payment channel returns an invalid bank error."
+- code: '471'
+  category: payment-channel
+  description: "Occurs when the payment channel returns credit account is not supported error."
+- code: '472'
+  category: payment-channel
+  description: "Occurs when the transaction is not allowed by the payment channel."
+- code: '473'
+  category: payment-channel
+  description: "Occurs when the transaction frequency has exceeded the limit."
+- code: '474'
+  category: payment-channel
+  description: "Occurs when the payment channel returns a bank error."
+- code: '475'
+  category: payment-channel
+  description: "Occurs when the transaction is already time out from the payment channel's side."
+- code: '476'
+  category: payment-channel
+  description: "Occurs when the payment channel returns an invalid IP error."
+- code: '477'
+  category: payment-channel
+  description: "Occurs when the payment channel returns an invalid operation hours error."
+- code: '478'
+  category: payment-channel
+  description: "Occurs when the payment is still in progress."
+- code: '479'
+  category: payment-channel
+  description: "The payment channel returns an invalid payment code error."
+- code: '480'
+  category: payment-channel
+  description: "Occurs when the payment code is invalid."
+- code: '481'
+  category: payment-channel
+  description: "Occurs when the customer initiates an ATM/Alfamart transaction and we are waiting for them to complete it at the ATM. This error can be ignored: it only indicates that the transaction has been initiated but not yet completed (there is no problem with the transaction)."
+- code: '483'
+  category: payment-channel
+  description: "Occurs when the customer enters a mismatched code required by the payment channel."
+- code: '492'
+  category: payment-channel
+  description: "Request failed due to too many requests."
+- code: '493'
+  category: payment-channel
+  description: "User not eligible for Direct Carrier Billing."
+- code: '494'
+  category: payment-channel
+  description: "Whitelist verification failed, user/device not allowed."
+- code: '501'
+  category: limits
+  description: "Transaction declined because the amount exceeded the merchant limit."
+- code: '502'
+  category: limits
+  description: "Transaction declined because the amount exceeded the user\u2019s transaction limit."
+- code: '503'
+  category: limits
+  description: "Transaction declined because the amount exceeded the user\u2019s monthly limit."
+- code: '504'
+  category: limits
+  description: "Transaction declined due to outstanding unpaid balances."
+- code: '511'
+  category: customer-account
+  description: "This error occurs when the customer already exists on the payment channel's side."
+- code: '512'
+  category: customer-account
+  description: "This error occurs when the customer already exists on the payment channel's side."
+- code: '513'
+  category: customer-account
+  description: "This error occurs when the merchant user is already existing on the payment channel's side."
+- code: '551'
+  category: refund
+  description: "Occurs when there is a duplicated refund request. This means that we already made the refund request for the transaction."
+- code: '552'
+  category: refund
+  description: "Occurs when the refund time has elapsed."
+- code: '553'
+  category: refund
+  description: "Occurs when the refund process fails."
+- code: '554'
+  category: refund
+  description: "This occurs when there is an error while the user is trying to make the payment. The funds are refunded to the user. No action is needed."
+- code: '555'
+  category: refund
+  description: "Refund request is in progress."
+- code: '556'
+  category: refund
+  description: "No matching refund record found for the request."
+- code: '601'
+  category: voucher
+  description: "The voucher code that the customer entered is incorrect."
+- code: '602'
+  category: voucher
+  description: "The voucher PIN that the customer entered is incorrect."
+- code: '603'
+  category: voucher
+  description: "The customer entered the correct card information but chose the wrong card type."
+- code: '604'
+  category: voucher
+  description: "The customer entered incorrect card details or attempted to use a card that had already been redeemed."
+- code: '605'
+  category: voucher
+  description: "The voucher code entered by the customer has been used."
+- code: '606'
+  category: voucher
+  description: "The voucher code entered by the customer has a mismatched value."
+- code: '607'
+  category: voucher
+  description: "The voucher code entered by the customer has expired."
+- code: '700'
+  category: card
+  description: "Occurs when the transaction with card payment is rejected."
+- code: '701'
+  category: card
+  description: "Occurs when the transaction with card payment status is pending."
+- code: '702'
+  category: card
+  description: "Occurs when the customer cancels the card payment from their side."
+- code: '703'
+  category: card
+  description: "The customer entered incorrect card details or attempted to use a card that had already been exceeded."
+- code: '704'
+  category: card
+  description: "This error occurs when a card has failed a risk assessment on Stripe and is denied by the bank. Please contact our technical team for support."
+- code: '705'
+  category: card
+  description: "This error occurs when the card is expired."
+- code: '706'
+  category: card
+  description: "This error occurs when the customer doesn't have a sufficient balance/limit on their card."
+- code: '707'
+  category: card
+  description: "The issuer bank returns an error for the card payment."
+- code: '708'
+  category: card
+  description: "Occurs when the customer inputs invalid card data."
+- code: '709'
+  category: card
+  description: "Occurs when the transaction type of the card payment is not supported."
+- code: '710'
+  category: card
+  description: "Occurs when the transaction using the card is blocked."
+- code: '711'
+  category: card
+  description: "Occurs when the card authorization is failed."
+- code: '712'
+  category: card
+  description: "Occurs when customers input the wrong CVV/security code number."
+- code: '713'
+  category: card
+  description: "There's a duplicate transaction for the card payment."
+- code: '714'
+  category: card
+  description: "Occurs when the card payment's address verification is failed."
+- code: '715'
+  category: card
+  description: "Occurs when the card payment's transaction cannot be processed."
+- code: '717'
+  category: card
+  description: "Occurs when customers input an invalid card's expiry date."
+- code: '718'
+  category: card
+  description: "Occurs when customers input an invalid card password."
+- code: '719'
+  category: card
+  description: "Occurs when customers input an invalid card's expiry date."
+- code: '720'
+  category: card
+  description: "Occurs when the merchant uses an invalid payment method."
+- code: '721'
+  category: card
+  description: "Occurs when customers input an invalid card's PIN."
+- code: '722'
+  category: card
+  description: "Occurs when the customer's card has exceeded the limit."
+- code: '723'
+  category: card
+  description: "Occurs when the card transaction is not allowed."
+- code: '724'
+  category: card
+  description: "Occurs when the credit card's 3DS is not completed."
+- code: '725'
+  category: card
+  description: "Occurs when the card exceeded its daily attempt limit."
+- code: '726'
+  category: card
+  description: "Occurs when the IP address from the credit card exceeded its daily attempt limit."
+- code: '729'
+  category: card
+  description: "Occurs when the amount is invalid."
+- code: '731'
+  category: card
+  description: "Occurs when entered an invalid card number or an invalid account number."
+- code: '733'
+  category: card
+  description: "The issuer bank returns an error for the card payment."
+- code: '736'
+  category: card
+  description: "Occurs when the transaction is invalid"
+- code: '739'
+  category: card
+  description: "Occurs when the payment has failed a risk assessment. Please contact our technical team for support.t."
+- code: '741'
+  category: card
+  description: "Occurs when the card it's a lost card."
+- code: '742'
+  category: card
+  description: "Occurs when the card is invalid."
+- code: '743'
+  category: card
+  description: "Occurs when customers entered an invalid PIN."
+- code: '744'
+  category: card
+  description: "Occurs when it exceeds the withdrawal amount limit."
+- code: '745'
+  category: card
+  description: "Occurs when the transaction times out."
+- code: '746'
+  category: card
+  description: "Occurs when the card is unsuable."
+- code: '747'
+  category: card
+  description: "Occurs when the transaction is pending."
+- code: '748'
+  category: card
+  description: "Occurs when customers entered an incorrect PIN."
+- code: '750'
+  category: card
+  description: "Occurs when the payment has failed a risk assessment. Please contact our technical team for support."
+- code: '751'
+  category: card
+  description: "Occurs when there has been a system error related to fraud."
+- code: '752'
+  category: card
+  description: "Occurs when the transaction amount is greater thena preauthorised."
+- code: '809'
+  category: catalog
+  description: "Occurs when the SKU is invalid,"
+- code: '901'
+  category: sms-and-carrier
+  description: "Occurs when there has been an SMS delivery error."
+- code: '902'
+  category: sms-and-carrier
+  description: "Occurs when a customer with an MSISDN from an operator with whom Coda is not connected initiates a purchase."
+- code: '903'
+  category: sms-and-carrier
+  description: "Occurs when there has been an SMS delivery error."
+- code: '904'
+  category: sms-and-carrier
+  description: "Occurs when Coda cannot connect to a particular telco's system."
+- code: '905'
+  category: sms-and-carrier
+  description: "Occurs when Coda receives a response timeout from the particular telco's system."
+- code: '906'
+  category: sms-and-carrier
+  description: "The mobile operator with whom Coda filed a charge request was unable to deliver the SMS to the customer."
+- code: '907'
+  category: sms-and-carrier
+  description: "The MSISDN entered by the customer does not exist."
+- code: '951'
+  category: sms-and-carrier
+  description: "Occurs when Coda receives an MT access not available from the particular telco's system."
+- code: '952'
+  category: sms-and-carrier
+  description: "Occurs when Coda receives a notification that the MT access is for the subscription only."
+- code: '953'
+  category: sms-and-carrier
+  description: "Occurs when Coda received error subscriptions ineligible for MT from a particular telco's system."
+- code: '970'
+  category: sms-and-carrier
+  description: "This means the tokenized charge has been prenotified."
+- code: '980'
+  category: sms-and-carrier
+  description: "Occurs when the tokenized charge user has been authenticated."
+- code: '999'
+  category: sms-and-carrier
+  description: "This means the tokenized charge is under free trial."
+- code: '1001'
+  category: account-and-configuration
+  description: "Occurs when the provided date of birth is invalid."
+- code: '1002'
+  category: account-and-configuration
+  description: "Occurs when the account or code is expired."
+- code: '1003'
+  category: account-and-configuration
+  description: "Occurs when the account is inactive."
+- code: '1004'
+  category: account-and-configuration
+  description: "Occurs when the account is stolen or canceled."
+- code: '1100'
+  category: account-and-configuration
+  description: "Occurs when the SKU ID is duplicate."
+- code: '1200'
+  category: account-and-configuration
+  description: "Occurs when it is declined by the circuit breaker."
+- code: '1300'
+  category: account-and-configuration
+  description: "Occurs when the payment channel configuration is empty in the error mapping."
+- code: '1301'
+  category: account-and-configuration
+  description: "Payment channel closed/maintenance"

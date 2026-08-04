@@ -1,0 +1,141 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/
+docs:
+- https://docs.coda.co/codapay/getting-started/set-up-payments.md
+- https://docs.coda.co/payout/integration-guides/getting-started/authentication-and-authorization.md
+- https://docs.coda.co/codashop-and-distribution/integration-guides/authorization.md
+- https://docs.coda.co/codapay/archived-tokenization-api-2.0/security-and-authentication.md
+note: >-
+  Coda Payments publishes no OpenAPI/Swagger definition for any of its APIs, so this
+  profile was read from the published documentation rather than derived from a spec.
+  Every surface below was confirmed on docs.coda.co on 2026-08-04.
+summary:
+  types:
+  - apiKey
+  - http-bearer-jwt
+  - hmac-signature
+  api_key_in:
+  - body
+  - header
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  transport_requirements:
+  - HTTPS only
+  - TLS 1.2 or higher
+schemes:
+- name: codapay-api-key
+  api: Codapay Hosted Payment Page API
+  type: apiKey
+  in: body
+  parameter: initRequest.apiKey
+  description: >-
+    API key issued by Coda in the Publisher Portal and passed inside the JSON request
+    body. In v1.0 one key is issued per title-country combination; in v2.0 a single
+    global API key per merchant is used together with a mandatory projectId field.
+  source: https://docs.coda.co/codapay/integration-guides/codapay-api-versions.md
+- name: codapay-project-id
+  api: Codapay Hosted Payment Page API
+  type: apiKey
+  in: body
+  parameter: initRequest.projectId
+  required_for: v2.0
+  description: Project ID issued per title product; mandatory on all v2.0 requests.
+  source: https://docs.coda.co/codapay/integration-guides/codapay-api-versions.md
+- name: direct-card-api-headers
+  api: Codapay Direct Card API
+  type: apiKey
+  in: header
+  parameters:
+  - Authorization
+  - X-Api-Key
+  - X-Partner-Id
+  description: >-
+    "Include an Authorization header, API Key, and Partner ID" — the Direct Card API
+    (submit a charge, get charge data, calculate tax, create refund) is authenticated
+    with a partner id plus a secret API key, over TLS 1.2 or higher.
+  source: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/submit-a-charge.md
+- name: payout-jwt
+  api: Coda Payout API
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  header: Authorization
+  description: >-
+    JWT generated per request and sent as "Bearer {jwt}". Accompanied by X-API-Key
+    and an x-signature integrity checksum header; Content-Type must be application/json.
+  source: https://docs.coda.co/payout/integration-guides/getting-started/how-to-generate-the-jwt-token.md
+- name: payout-api-key
+  api: Coda Payout API
+  type: apiKey
+  in: header
+  parameter: X-API-Key
+  description: Merchant API key required on every Payout API request.
+  source: https://docs.coda.co/payout/integration-guides/getting-started/authentication-and-authorization.md
+- name: payout-x-signature
+  api: Coda Payout API
+  type: hmac-signature
+  in: header
+  parameter: x-signature
+  description: Request-integrity checksum computed over the payload; required on every request.
+  source: https://docs.coda.co/payout/integration-guides/getting-started/how-to-generate-the-x-signature.md
+- name: tokenization-jwt
+  api: Codapay Tokenization API 2.0 (archived)
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  headers:
+  - Authorization
+  - X-Partner-Id
+  - X-Api-Key
+  jwt_algorithm: HS256
+  jwt_claims:
+  - partner_id
+  - iat
+  description: >-
+    HS256 JWT signed with a partner JWT secret, unique per request, plus X-Partner-Id
+    (the "username") and X-Api-Key (the secret). Documented under the archived
+    Tokenization API 2.0 section.
+  source: https://docs.coda.co/codapay/archived-tokenization-api-2.0/security-and-authentication.md
+- name: codashop-fulfillment-hmac
+  api: Codashop and Coda Webstore Fulfillment API
+  type: hmac-signature
+  algorithm: HMAC-SHA256
+  parameter: signature
+  in: body
+  description: >-
+    Publisher-side fulfillment endpoints (validate, topup, usersync) authenticate Coda's
+    calls with an HMAC-SHA256 signature over an ordered concatenation of request fields
+    (id + jsonrpc + method + serviceProvider + txnId + orderId + userId + zoneId +
+    currency + amount + sku + quantity + paymentChannelId + isForTest [+ roleId]) using
+    a merchant-defined shared secret key.
+  source: https://docs.coda.co/codashop-and-distribution/integration-guides/authorization.md
+- name: notification-checksum
+  api: Codapay Hosted Payment Page API
+  type: hmac-signature
+  algorithm: MD5
+  parameter: Checksum
+  in: query
+  direction: inbound-webhook
+  description: >-
+    Transaction completion notifications carry a Checksum query parameter that partners
+    must validate before processing. Payin formula is MD5(txnId + apiKey + orderId +
+    resultCode); separate formulas are published for save-card and refund/chargeback
+    notifications.
+  source: https://docs.coda.co/codapay/integration-guides/security-guidelines.md
+ip_allowlisting:
+  supported: true
+  description: >-
+    Coda publishes IP allowlist requirements for the Direct Card API and for Codashop
+    fulfillment callbacks; partners must whitelist Coda's egress addresses.
+  sources:
+  - https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/whitelist-ip-address.md
+  - https://docs.coda.co/changelog/2024-codashop-changelog/codashop-ip-whitelist-changes.md
+credential_issuance:
+  portal: https://portal.coda.co/
+  description: >-
+    API keys, project ids and sandbox/production configuration are issued and rotated
+    in the Coda Publisher Portal; there is no self-service public signup for API
+    credentials beyond portal registration.

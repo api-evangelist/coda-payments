@@ -1,0 +1,73 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/
+versioning:
+  scheme: uri-path
+  current: v2.0
+  supported:
+  - v1.0
+  - v2.0
+  policy: >-
+    Both Codapay API versions are "fully supported"; v2.0 is the recommended version for
+    all new integrations and is the only version with saved-card support. Coda publishes
+    a migration guide from v1.0 to v2.0 (request a global API key, switch the base URL
+    from /v1.0/ to /v2.0/, add the mandatory projectId field).
+  docs: https://docs.coda.co/codapay/integration-guides/codapay-api-versions.md
+  upgrade_guide: https://docs.coda.co/codapay/integration-guides/upgrade-to-codapay-api-v2-and-unlock-saved-card-support.md
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No formal deprecation or sunset policy is published, and no RFC 8594 Sunset/Deprecation
+    headers are documented. What Coda does publish instead is (a) an "Archived" section for
+    the Tokenization API 2.0 and (b) per-payment-channel discontinuation notices on the
+    Channel Status page. Neither states a notice period or an end-of-life date for an API
+    version.
+  archived_surfaces:
+  - name: Tokenization API 2.0
+    status: archived
+    docs: https://docs.coda.co/codapay/archived-tokenization-api-2.0.md
+  - name: Subscription (Tokenization API 2.0)
+    status: coming soon / not released
+    docs: https://docs.coda.co/codapay/archived-tokenization-api-2.0/subscription-coming-soon.md
+  - name: Recurring Payments
+    status: coming soon / not released
+    docs: https://docs.coda.co/codapay/recurring-payments-coming-soon.md
+status_page:
+  url: https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/channel-status.md
+  kind: channel-status
+  description: >-
+    Coda operates no status.<domain> host (status.codapayments.com returned HTTP 403 on
+    2026-08-04 and status.coda.co does not resolve). The published operational-status
+    surface is the Channel Status page in the docs, which carries every payment channel
+    Discontinued / Paused / Resumed notice, alongside the Price Limit and Expiry Time and
+    New Channel Announcement pages. Payment channel outages are otherwise handled through
+    the 24/7 technical support address.
+  related:
+  - https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update.md
+  - https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/price-limit-and-expiry-time.md
+  - https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/new-channel-announcement.md
+  probe:
+    status.codapayments.com: 403
+    status.coda.co: unresolved
+sla:
+  url: null
+  uptime_claim: '99.95%+'
+  uptime_claim_source: https://docs.coda.co/codapay/overview.md
+  security_uptime_claim: '99.99% security uptime through continuous 24/7 real-time monitoring'
+  security_uptime_source: https://docs.coda.co/coda-portal/onboarding-compliance/security-overview.md
+  note: >-
+    The uptime figures are marketing claims in the docs, not a contractual SLA document.
+    No public SLA or service-credit schedule is published.
+support:
+  technical_support_24_7: partnersupport@coda.co
+  integration_support: codapay_integration@coda.co
+  codashop_integration: codashop_integration@coda.co
+  commercial: commercial.ops@coda.co
+  technical_error_codes: technical@codapayments.com
+  docs: https://docs.coda.co/references/contact-us.md
+changelog:
+  see: changelog/coda-payments-changelog.yml
+  url: https://docs.coda.co/changelog/2024-codapay-changelog.md
+deprecated_operations: []

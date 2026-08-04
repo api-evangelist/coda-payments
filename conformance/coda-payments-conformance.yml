@@ -1,0 +1,126 @@
+generated: '2026-08-04'
+method: searched
+source: https://www.coda.co/security/
+docs:
+- https://www.coda.co/security/
+- https://docs.coda.co/coda-portal/onboarding-compliance/onboarding/compliance-certifications.md
+- https://docs.coda.co/coda-portal/onboarding-compliance/security-overview.md
+- https://docs.coda.co/coda-portal/onboarding-compliance/general-compliance.md
+note: >-
+  Two Coda-published surfaces state the compliance posture differently and both are
+  recorded here verbatim rather than reconciled. The corporate security page
+  (www.coda.co/security, fetched 2026-08-04) headlines "PCI DSS Level 1 Compliance &
+  ISO/IEC 27001:2022 Certification". The technical documentation compliance page
+  (docs.coda.co, fetched 2026-08-04) states Coda "processes fewer than the threshold of
+  6 million credit and debit card transactions required for the PCI DSS Level 1
+  compliance level", "self-assesses its PCI DSS compliance with the SAQ A-EP form and
+  self-attests to that compliance annually", "do not have any independent PCI
+  certification", and "is currently not certified with ISO 27001 or SOC 2". The docs
+  page appears to predate the coda.co rebrand and may be stale; a provider correction is
+  the right way to resolve it.
+standards:
+- id: pci-dss
+  conforms: claimed
+  level_claimed_corporate: Level 1
+  level_claimed_docs: SAQ A-EP self-assessment, annual self-attestation
+  evidence: >-
+    www.coda.co/security page title and body claim "PCI DSS Level 1 Compliance";
+    docs.coda.co compliance-certifications page states self-assessment via SAQ A-EP and
+    no independent PCI certification.
+  conflict: true
+  sources:
+  - https://www.coda.co/security/
+  - https://docs.coda.co/coda-portal/onboarding-compliance/onboarding/compliance-certifications.md
+- id: iso-27001
+  conforms: claimed
+  version_claimed: ISO/IEC 27001:2022
+  evidence: >-
+    Claimed as a certification on www.coda.co/security; the docs compliance page states
+    Coda "is currently not certified with ISO 27001 or SOC 2".
+  conflict: true
+- id: soc2-type2
+  conforms: false
+  evidence: '"Coda Payments is currently not certified with ISO 27001 or SOC 2." (docs.coda.co)'
+- id: mas-trm
+  conforms: in-progress
+  evidence: >-
+    "Coda Payments is pursuing MAS technology risk management compliance certification
+    for fintech companies based in Singapore."
+- id: gdpr
+  conforms: true
+  evidence: >-
+    EU GDPR and UK GDPR named on the corporate security page; docs state Coda has the
+    required technical and organizational measures, data-subject-rights and breach
+    notification procedures.
+- id: ccpa
+  conforms: true
+  evidence: Named on www.coda.co/security and in the docs compliance page.
+- id: pdpa-singapore
+  conforms: true
+  evidence: Named on www.coda.co/security and in the docs compliance page.
+- id: lgpd-brazil
+  conforms: true
+  evidence: Named on www.coda.co/security.
+- id: pdpa-philippines
+  conforms: true
+  evidence: Named on www.coda.co/security.
+- id: pdp-indonesia
+  conforms: true
+  evidence: Named on www.coda.co/security.
+- id: pipeda-canada
+  conforms: true
+  evidence: Named on www.coda.co/security.
+- id: merchant-of-record
+  conforms: true
+  evidence: >-
+    Coda operates as Merchant of Record and states it handles tax calculation, remittance
+    and regulatory compliance across markets, including Singapore GST and end-user sales
+    tax.
+  sources:
+  - https://www.coda.co/llms.txt
+  - https://docs.coda.co/coda-portal/finance-guide/taxes.md
+- id: 3d-secure
+  conforms: true
+  evidence: Direct Card API publishes a "Handling 3DS" flow for charges requiring 3DS authentication.
+  source: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/handling-3ds.md
+- id: tls-1.2-minimum
+  conforms: true
+  evidence: 'Every API integration page states the pre-requisites "Use HTTPS protocol" and "TLS 1.2 or higher".'
+- id: oauth2
+  conforms: false
+  evidence: No OAuth 2.0 authorization server or scopes are published; auth is API key + JWT + HMAC signature.
+- id: openid-connect
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any Coda host (probed 2026-08-04, all 404/403).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors are numeric resultCodes or SCREAMING_SNAKE_CASE strings; no application/problem+json.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset/Deprecation header support documented.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returned 404 on www.coda.co, www.codapayments.com, airtime.codapayments.com and sandbox.codapayments.com (probed 2026-08-04).
+- id: json-rpc-2.0
+  conforms: true
+  evidence: >-
+    The Codashop / Coda Webstore fulfillment contract publishers implement uses JSON-RPC
+    2.0 (jsonrpc "2.0", method "topup"/"validate"/"usersync", id).
+  source: https://docs.coda.co/codashop-and-distribution/integration-guides/authorization.md
+- id: openapi
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger document found. Probed /openapi.json, /openapi.yaml, /swagger.json,
+    /v1/openapi.json, /api-docs and /redoc against airtime.codapayments.com,
+    api-tc.codapayments.com, payout.codapayments.com, sandbox.codapayments.com,
+    tc-api-card-sandbox.codapayments.com, payout.codapayments-staging.com, docs.coda.co,
+    www.coda.co, www.codapayments.com and portal.coda.co on 2026-08-04 — all 404, 403
+    "Missing Authentication Token", 401, or an SPA HTML shell.
+- id: asyncapi
+  conforms: false
+  evidence: No AsyncAPI document published; the event surface is documented webhooks only.
+- id: a2a-agent-card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json probed on every Coda host
+    2026-08-04 — 404, 403 or an SPA catch-all returning HTML. No agent card published.

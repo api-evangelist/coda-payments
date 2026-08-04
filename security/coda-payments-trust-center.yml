@@ -1,0 +1,50 @@
+generated: '2026-08-04'
+method: searched
+probe: true
+url: https://www.coda.co/security/
+kind: security-and-compliance-page
+note: >-
+  Coda runs no dedicated trust-center host. trust.coda.co and trust.codapayments.com do
+  not resolve; the compliance posture is published as a page on the corporate site plus a
+  compliance section inside the technical documentation.
+certifications:
+- PCI DSS Level 1 (claimed on www.coda.co/security; the docs compliance page states SAQ
+  A-EP self-assessment and no independent PCI certification — see
+  conformance/coda-payments-conformance.yml)
+- ISO/IEC 27001:2022 (claimed on www.coda.co/security; the docs compliance page states
+  Coda is currently not certified with ISO 27001)
+privacy_regimes:
+- EU GDPR
+- UK GDPR
+- CCPA
+- Singapore PDPA
+- Brazil LGPD
+- Philippines PDPA
+- Indonesia PDP
+- Canada PIPEDA
+not_certified:
+- SOC 2 Type II
+in_progress:
+- MAS Technology Risk Management (Singapore)
+security_program_documentation:
+  url: https://docs.coda.co/coda-portal/onboarding-compliance/security-overview.md
+  sections:
+  - Data Privacy
+  - Application Security
+  - Network Security
+  - Security Operations
+  - Access Control Management
+  - Human Resources Security
+  claim: '99.99% security uptime through continuous 24/7 real-time monitoring'
+vulnerability_disclosure: security/coda-payments-vulnerability-disclosure.yml
+subprocessor_list: not published
+audit_report_request: not published
+evidence:
+- source: https://www.coda.co/security/
+  http_status: 200
+  fetched: '2026-08-04'
+  keywords: [pci dss, iso 27001, gdpr, ccpa, pdpa, lgpd, vulnerability disclosure policy]
+- source: https://docs.coda.co/coda-portal/onboarding-compliance/onboarding/compliance-certifications.md
+  http_status: 200
+  fetched: '2026-08-04'
+  keywords: [pci dss, saq a-ep, iso 27001, soc 2, mas trm]

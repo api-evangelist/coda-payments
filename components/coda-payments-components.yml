@@ -1,0 +1,81 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/codapay/hosted-component-integration.md
+docs:
+- https://docs.coda.co/codapay/integration-guides/choosing-the-right-type-of-integration.md
+- https://docs.coda.co/codapay/hosted-payment-page-integration.md
+- https://docs.coda.co/codapay/hosted-component-integration.md
+- https://docs.coda.co/codapay/in-app-payments.md
+- https://docs.coda.co/coda-links/overview.md
+- https://docs.coda.co/coda-webstore/getting-started.md
+note: >-
+  Client-side and embedded commerce surfaces, distinct from the server-side API. Coda
+  frames these as four integration types with published effort estimates.
+families:
+- family: Hosted Payment Page
+  kind: full-page redirect
+  effort: ~10 minutes (documented as the quickest integration)
+  description: >-
+    Redirect the shopper to a Coda-hosted payment page using the redirectUrl returned by
+    the init call. Supports a channel selection page (payType 0), a DCB page (payType 1),
+    or direct entry to a specific payment channel page. Page design and channel display
+    are configured in the Publisher Portal; the page can be shown inside an iframe using
+    the in_frame_redirect profile flag.
+  docs: https://docs.coda.co/codapay/hosted-payment-page-integration.md
+- family: Hosted Components
+  kind: embedded client-side elements
+  loader: CodaCard SDK
+  description: >-
+    Card fields injected into the merchant's own checkout page so card data never touches
+    the merchant's servers. Instantiated with CodaCard(), configured via
+    .components({clientSecret, appearance}), and styled through an appearance object
+    (custom style options including borderRadius).
+  capabilities:
+  - card entry with PCI-compliant hosted fields
+  - saving card details
+  - authorize and capture separately
+  - patch a transaction
+  - styling and customization
+  docs: https://docs.coda.co/codapay/hosted-component-integration/cards.md
+- family: Hosted Components — Alternative Payment Methods
+  kind: embedded client-side elements
+  loader: CodaComponent SDK
+  description: >-
+    Embeds Coda's non-card payment methods (e-wallets, carrier billing, bank transfer,
+    over-the-counter, vouchers) as components inside the merchant's own checkout flow.
+  docs: https://docs.coda.co/codapay/hosted-component-integration/alternative-payment-methods.md
+- family: In-App Payments
+  kind: native mobile / game engine
+  description: >-
+    Native in-app purchase surfaces: a Unity native integration backed by
+    CodaUnitySDK.unitypackage (with UI customization and Android build guidance), a generic
+    native integration, and an iOS link-out integration built for the app-store external
+    purchase-link rules.
+  docs: https://docs.coda.co/codapay/in-app-payments.md
+- family: Coda Links
+  kind: link-out commerce
+  description: >-
+    Link-out solution that sends users from an app to a Coda-hosted payment page or a
+    Coda-powered web store, built specifically for Apple's and Google's requirements in
+    linkout-enabled regions (US iOS and Android flows documented separately), including
+    redirecting the user back into the app afterwards and enabling LiveOps on the
+    post-purchase screen.
+  docs: https://docs.coda.co/coda-links/overview.md
+- family: Coda Webstore
+  kind: hosted white-label storefront
+  description: >-
+    A Coda-powered web store for the publisher's own catalogue, with Commerce LiveOps
+    (daily login rewards, first purchase discount, seasonal and highlighted promotions,
+    seasons calendar sync), personalized sales, and user login options (Coda Accounts,
+    frictionless login, frictionless player ID, or custom login).
+  docs: https://docs.coda.co/coda-webstore/getting-started.md
+- family: Coda Portal
+  kind: embedded merchant dashboard
+  description: >-
+    The Publisher Portal is the operator surface — title and SKU management, sandbox and
+    production configuration, data insights dashboards, finance reporting (invoices,
+    purchase orders, payment notices), automated price optimization and Google Play SKU
+    import.
+  url: https://portal.coda.co/
+  docs: https://docs.coda.co/coda-portal/introduction-to-coda-portal.md
+integration_comparison: https://docs.coda.co/codapay/integration-guides/choosing-the-right-type-of-integration.md

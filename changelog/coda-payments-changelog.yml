@@ -1,0 +1,149 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/changelog.md
+docs:
+- https://docs.coda.co/changelog.md
+- https://docs.coda.co/changelog/2024-codapay-changelog.md
+- https://docs.coda.co/changelog/2024-codashop-changelog.md
+- https://docs.coda.co/changelog/legacy-changelog.md
+- https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/channel-status.md
+- https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/price-limit-and-expiry-time.md
+- https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/new-channel-announcement.md
+scheme: dated-entries
+structure: >-
+  Two overlapping surfaces. (1) /changelog carries dated per-item release notes but the
+  most recent year-section published is "2024 Codapay Changelog" (with a "2024 Codashop
+  Changelog" and a "Legacy Changelog" covering 2023); no 2025 or 2026 changelog section
+  exists (both /changelog/2025-codapay-changelog and /changelog/2026-codapay-changelog
+  return "does not exist"). (2) The live 2025-2026 change record has moved into the
+  Payment Channel Update section — Channel Status, Price Limit and Expiry Time, and New
+  Channel Announcement — which is where current channel pauses, resumes, discontinuations
+  and price-point changes are dated and published.
+current_version: v2.0
+entries:
+- date: '2026-07-28'
+  surface: channel-status
+  type: channel-paused
+  summary: Kenya M-PESA paused.
+  breaking: false
+- date: '2026-03-31'
+  surface: channel-status
+  type: channel-resumed
+  summary: Card Payments Myanmar and Card Payments Turkey resumed.
+  breaking: false
+- date: '2026-03-04'
+  surface: docs
+  type: policy-update
+  summary: >-
+    Coda Links pages updated for Apple's and Google's requirements for linkout-enabled
+    regions (last updated 4 March 2026).
+  breaking: false
+  url: https://docs.coda.co/coda-links/overview/apples-requirements-for-linkout-enabled-regions.md
+- date: '2026-03-02'
+  surface: channel-status
+  type: channel-resumed
+  summary: WeChat Pay Hong Kong and Chunghwa Telecom (Taiwan) resumed.
+  breaking: false
+- date: '2026-01-21'
+  surface: channel-status
+  type: channel-paused
+  summary: Chunghwa Telecom (Taiwan) paused.
+  breaking: false
+- date: '2026-01-16'
+  surface: channel-status
+  type: channel-paused
+  summary: Unitel Laos paused.
+  breaking: false
+- date: '2026-01-08'
+  surface: channel-status
+  type: channel-paused
+  summary: Card Payments Turkey paused.
+  breaking: false
+- date: '2025-12-24'
+  surface: channel-status
+  type: channel-paused
+  summary: Bank Transfer Turkey paused.
+  breaking: false
+- date: '2025-12-19'
+  surface: channel-status
+  type: channel-paused
+  summary: Todito Cash (Mexico) paused.
+  breaking: false
+- date: '2025-12-10'
+  surface: channel-status
+  type: channel-paused
+  summary: PayPal Taiwan paused.
+  breaking: false
+- date: '2025-12-09'
+  surface: channel-status
+  type: channel-paused
+  summary: Singtel (Singapore) paused.
+  breaking: false
+- date: '2025-08-11'
+  surface: channel-status
+  type: channel-paused
+  summary: >-
+    WeChat Pay Hong Kong paused for non-gaming titles only; UAE Etisalat paused.
+  breaking: false
+- date: '2025-08-01'
+  surface: channel-status
+  type: channel-discontinued
+  summary: M1 (Singapore) discontinued.
+  breaking: true
+- date: '2025-07-24'
+  surface: channel-status
+  type: channel-discontinued
+  summary: Fawry (Egypt) discontinued.
+  breaking: true
+- date: '2025-06-13'
+  surface: price-limit
+  type: price-point-change
+  summary: >-
+    Minimum price points changed for Card Payments Poland (PLN 2.44), UK (GBP 0.5),
+    Kuwait KNET & Cards (KWD 0.2), Bolivia (BOB 4) and Ireland (EUR 0.6).
+  breaking: false
+- date: '2025-06-03'
+  surface: price-limit
+  type: price-point-change
+  summary: >-
+    Maximum price points tightened across Card Payments in Pakistan, Germany, the United
+    States, Great Britain, Netherlands, France, Spain and Kuwait.
+  breaking: false
+undated_recent:
+- surface: new-channel-announcement
+  summary: 'New payment channel: Pakistan - HBL Konnect (e-wallet, requires Pakistan CNIC).'
+  url: https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/new-channel-announcement/pakistan-hbl-konnect.md
+- surface: new-channel-announcement
+  summary: 'New payment channel: United States - American Express (card).'
+  url: https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/new-channel-announcement/united-states-american-express.md
+- surface: new-channel-announcement
+  summary: 'New payment channel: Colombia - Google Pay / Apple Pay.'
+  url: https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/new-channel-announcement/colombia-google-apple-pay.md
+- surface: docs
+  summary: >-
+    Codapay API v2.0 published with a global API key, mandatory projectId and saved-card
+    support, plus a v1.0-to-v2.0 upgrade guide.
+  url: https://docs.coda.co/codapay/integration-guides/upgrade-to-codapay-api-v2-and-unlock-saved-card-support.md
+- surface: docs
+  summary: >-
+    Hosted Component Integration published — CodaCard SDK for card fields and
+    CodaComponent SDK for alternative payment methods.
+  url: https://docs.coda.co/codapay/hosted-component-integration.md
+notable_2024_api_entries:
+- date: '2024-05-17'
+  summary: New parameters added to the Codapay API.
+  url: https://docs.coda.co/changelog/2024-codapay-changelog/2024-05-17-new-parameters-added-to-codapay-api.md
+- summary: New adjustment to the inquiryPaymentResult API.
+  url: https://docs.coda.co/changelog/2024-codapay-changelog/new-adjustment-to-inquirypaymentresult-api.md
+- summary: 'Hosted Payment Page Integration: type=3 parameter adjustment.'
+  url: https://docs.coda.co/changelog/2024-codapay-changelog/hosted-payment-page-integration-type-3-parameter-adjustment.md
+- summary: '[Backend API Update] Malaysia Maxis channel.'
+  url: https://docs.coda.co/changelog/2024-codapay-changelog/backend-api-update-malaysia-maxis-channel.md
+- summary: Signature calculation for the User Verify request (Codashop).
+  url: https://docs.coda.co/changelog/2024-codashop-changelog/signature-calculation-for-user-verify-request.md
+- summary: Codashop IP whitelist changes.
+  url: https://docs.coda.co/changelog/2024-codashop-changelog/codashop-ip-whitelist-changes.md
+gaps:
+- No 2025 or 2026 dated changelog section exists; the /changelog tree stops at 2024.
+- No RSS/Atom feed or machine-readable changelog is published.
+- Entries carry no version numbers — API changes are described in prose per page.

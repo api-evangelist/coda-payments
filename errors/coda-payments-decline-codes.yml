@@ -1,0 +1,156 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/codapay/references/direct-api-charge-error-codes.md
+docs:
+- https://docs.coda.co/codapay/references/direct-api-charge-error-codes.md
+- https://docs.coda.co/codapay/references/direct-api-charge-statuses.md
+- https://docs.coda.co/codapay/references/refund-status-codes.md
+api: Codapay Direct Card API
+envelope:
+  field: Codapay error code
+  attached_to: charges with a failed status
+  note: >-
+    "Error Codes will be provided alongside the charges with failed status to provide
+    more information about payment failure." Codes are SCREAMING_SNAKE_CASE strings,
+    not numeric; the numeric resultCode catalog for the Hosted Payment Page API is in
+    errors/coda-payments-error-codes.yml.
+charge_statuses:
+- status: processing
+  description: "Indicates that the payment has been initiated but has not yet been completed or failed."
+  final: false
+  supported_in_sandbox: false
+- status: authorized
+  description: "Signifies that the payment has been successfully authorized."
+  final: false
+  supported_in_sandbox: true
+- status: waiting_for_shopper_action
+  description: "Signifies that the charge is waiting for shopper action to be completed"
+  final: false
+  supported_in_sandbox: true
+- status: waiting_capture_approval
+  description: "Indicates that coda waiting from your response that you acknowledged that coda will capture the request"
+  final: false
+  supported_in_sandbox: true
+- status: capture_initiated
+  description: "Signifies that the operation to capture funds has been initiated for an authorized charge"
+  final: false
+  supported_in_sandbox: false
+- status: succeeded
+  description: "Signifies that the payment has been successfully captured and funds will be transferred after settlement."
+  final: true
+  supported_in_sandbox: true
+- status: failed
+  description: "Indicates that the payment attempt has failed."
+  final: true
+  supported_in_sandbox: true
+- status: canceled
+  description: "Indicates that the payment attempt has been canceled"
+  final: true
+  supported_in_sandbox: false
+refund_statuses:
+- status: accepted
+  description: "The refund request has been accepted by Coda. At this stage, the refund is still in the pending stage."
+  final: false
+- status: succeeded
+  description: "The refund request has been successfully completed by the system."
+  final: true
+- status: failed
+  description: "The refund request has failed or been canceled by the system."
+  final: true
+masked_to_buyer:
+  note: >-
+    Coda does not publish a buyer-facing masking matrix. The BLOCKED_RISK_* codes
+    are the ones whose recommended action is to tell the customer to contact their
+    bank rather than surface the real reason, which is the conventional masking
+    boundary for risk decisions.
+decline_codes:
+- code: UNABLE_TO_AUTHORISE
+  meaning: "The transaction could not be authorized."
+  action: "Prompt the customer to try again later."
+- code: PAYMENT_DECLINED
+  meaning: "The payment was declined by the issuer."
+  action: "Verify the payment information and try again, or use a different payment method."
+- code: INVALID_REQUEST
+  meaning: "The payment request was invalid due to incorrect formatting or data."
+  action: "Check the request parameters and ensure they comply with the required format."
+- code: DO_NOT_HONOR
+  meaning: "The transaction was declined without a specific reason."
+  action: "Advise the customer to contact the bank for more details or try a different payment method."
+- code: CARD_EXPIRED
+  meaning: "The card used for the transaction has expired."
+  action: "Ask the customer to use a different card or update the card information."
+- code: CARD_NOT_SUPPORTED
+  meaning: "The card type is not supported for this transaction."
+  action: "Suggest using a different card or payment method."
+- code: ADDRESS_VERIFICATION_FAILED
+  meaning: "The provided address could not be verified."
+  action: "Verify the address details and try again."
+- code: DECLINED_BY_ISSUER
+  meaning: "The issuer declined the transaction."
+  action: "Contact the bank for more details or try a different payment method."
+- code: DUPLICATE_TRANSACTION
+  meaning: "A transaction with the same details has already been processed."
+  action: "Check for duplicate transactions and avoid resubmitting the same request."
+- code: INSUFFICIENT_BALANCE
+  meaning: "There are not enough funds available to complete the transaction."
+  action: "Advise the customer to use a different payment method or ensure sufficient funds."
+- code: INVALID_ACCOUNT
+  meaning: "The account details provided are not valid."
+  action: "Verify the account information and try again."
+- code: INVALID_ACCOUNT_OR_CARD
+  meaning: "The account or card details are incorrect."
+  action: "Check and re-enter the account or card information."
+- code: INVALID_AMOUNT
+  meaning: "The transaction amount is invalid or exceeds limits."
+  action: "Ensure the transaction amount is correct and within allowable limits."
+- code: INVALID_SECURITY_CODE
+  meaning: "The security code provided is incorrect."
+  action: "Verify the security code and try again."
+- code: PROVIDER_SYSTEM_ERROR
+  meaning: "There was an error with the payment provider's system."
+  action: "Wait a moment and try again, or contact support if the issue continues."
+- code: RETRY_REQUIRED
+  meaning: "The transaction needs to be retried."
+  action: "Wait a moment and try again, or contact support if the issue continues."
+- code: BLOCKED_RISK_CODA_BLOCKLIST
+  meaning: "The charge was flagged as potentially fraudulent by Coda blocklist."
+  action: "Advise the customer to contact the bank for more details or try a different payment method."
+- code: BLOCKED_RISK_CODA_RULE
+  meaning: "The charge was flagged as potentially fraudulent by one of the Coda risk rules."
+  action: "Advise the customer to contact the bank for more details or try a different payment method."
+- code: BLOCKED_RISK_PROVIDER
+  meaning: "The charge was flagged as potentially fraudulent by the payment provider."
+  action: "Advise the customer to contact the bank for more details or try a different payment method."
+- code: TOO_MANY_TRIES
+  meaning: "Too many attempts have been made to process the transaction."
+  action: "Wait a moment and try again, or contact support if the issue continues."
+- code: TRANSACTION_LIMIT_EXCEEDED
+  meaning: "The transaction amount exceeds the limit allowed by the provider"
+  action: "Reduce the transaction amount and try again."
+- code: TRANSACTION_NOT_ALLOWED
+  meaning: "The transaction is not allowed by the issuer or payment processor."
+  action: "Verify the transaction details or try a different payment method."
+- code: UNKNOWN_ERROR
+  meaning: "An unknown error occurred during the transaction."
+  action: "Try the transaction again or contact support if the issue persists."
+- code: AUTHENTICATION_FAILED
+  meaning: "There was an error during the authentication process."
+  action: "Prompt the customer to check authentication details and try again."
+- code: INITIATED_FAILED
+  meaning: "Charge is initiated at the Provider end. Initiation has failed."
+  action: "Try the transaction again or contact support if the issue persists."
+- code: INITIATED_NOT_ACCEPTED
+  meaning: "Charge is initiated at the Provider end. Provider didn\u2019t accept the initiation."
+  action: "Advise the customer to retry with a different payment method."
+- code: FAILED_TOKEN_EXPIRED
+  meaning: "Charge is failed due to Expired Token"
+  action: "Advise the customer to retry with a different payment method."
+- code: FAILED_TOKEN_CANCELLED
+  meaning: "Charge failed due to Cancelled Token"
+  action: "Advise the customer to retry with a different payment method."
+- code: FAILED_TOKEN_NOT_AUTHORIZED
+  meaning: "Charge is failed due to UNAUTHORIZED Token"
+  action: "Advise the customer to retry with a different payment method."
+- code: BLOCKED_CHARGE_LIMIT_EXCEEDED
+  meaning: "Charge is blocked by Coda limit"
+  action: "Reduce the transaction amount and try again."

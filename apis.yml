@@ -1,23 +1,190 @@
 aid: coda-payments
 name: Coda Payments
-description: 'Coda Payments is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'Coda Payments (trading as Coda, coda.co) is a Singapore-headquartered
+  global Merchant of Record and monetization platform for digital content publishers,
+  game studios and app developers. Its Codapay API lets partners accept 300+ local
+  and global payment methods — cards, e-wallets, direct carrier billing, bank transfer,
+  over-the-counter and vouchers — across 65+ countries and 60 currencies through a
+  single integration, with Coda taking on Merchant of Record responsibility for tax,
+  regulatory compliance, fraud and chargebacks. The developer surface spans the Codapay
+  Hosted Payment Page API (v1.0/v2.0), a Direct Card API for server-to-server card
+  charges with 3DS, hosted client-side components (CodaCard and CodaComponent JS SDKs),
+  a Unity in-app payments SDK, a Refund API, a Payout API for cross-border disbursement,
+  and the Codashop / Coda Webstore fulfillment APIs (validation, top-up, user sync)
+  that publishers implement so Coda can deliver purchased items into their games.'
 url: https://raw.githubusercontent.com/api-evangelist/coda-payments/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
+x-tier: profiled
+x-tier-reason: enrichment-pipeline
 specificationVersion: '0.20'
 created: '2026-08-02'
-modified: '2026-08-02'
+modified: '2026-08-04'
+image: https://www.coda.co/wp-content/uploads/2024/11/Landscape.jpg
 tags:
 - Company
-apis: []
+- Payments
+- Merchant of Record
+- Gaming
+- Digital Goods
+- Carrier Billing
+- E-Wallets
+- Payouts
+- Southeast Asia
+- Monetization
+apis:
+- aid: coda-payments:codapay-hosted-payment-page
+  name: Codapay Hosted Payment Page API
+  description: 'Initiate a payment request, redirect the shopper to Coda''s hosted
+    payment page, receive the transaction completion notification, and check transaction
+    status. Available as v1.0 (API key per title/country) and v2.0 (global API key
+    plus projectId, adds saved-card support). JSON over HTTPS, POST {base}/init.json
+    and inquiry endpoints.'
+  humanURL: https://docs.coda.co/codapay/hosted-payment-page-integration.md
+  baseURL: https://airtime.codapayments.com/airtime/api/restful/v2.0/Payment
+  tags:
+  - Payments
+  - Checkout
+  - Hosted Payment Page
+  properties:
+  - type: Documentation
+    url: https://docs.coda.co/codapay/hosted-payment-page-integration.md
+  - type: GettingStarted
+    url: https://docs.coda.co/codapay/getting-started.md
+  - type: Sandbox
+    url: https://sandbox.codapayments.com/airtime/api/restful/v2.0/Payment
+- aid: coda-payments:codapay-direct-card-api
+  name: Codapay Direct Card API
+  description: 'Server-to-server card acquiring: submit a charge, retrieve charge data,
+    calculate tax, handle 3DS, and create refunds. Authenticated with an Authorization
+    header, X-Api-Key and Partner ID over TLS 1.2+.'
+  humanURL: https://docs.coda.co/codapay/direct-api-integration.md
+  baseURL: https://api-tc.codapayments.com/v1/
+  tags:
+  - Payments
+  - Cards
+  - 3DS
+  - Refunds
+  properties:
+  - type: Documentation
+    url: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards.md
+  - type: Sandbox
+    url: https://tc-api-card-sandbox.codapayments.com/v1/
+- aid: coda-payments:coda-payout-api
+  name: Coda Payout API
+  description: 'Cross-border payout API for disbursing funds to beneficiaries in local
+    currency across markets including Brazil, Colombia, Egypt, India, Indonesia, Mexico,
+    Morocco, Nigeria, Pakistan, Saudi Arabia and Turkey. POST /payouts, check payout
+    status, check available balance, and receive payout notifications. Authenticated
+    with X-API-Key, a JWT bearer token and an x-signature integrity checksum.'
+  humanURL: https://docs.coda.co/payout/overview.md
+  baseURL: https://payout.codapayments.com
+  tags:
+  - Payouts
+  - Disbursement
+  - Cross-Border
+  properties:
+  - type: Documentation
+    url: https://docs.coda.co/payout/integration-guides/api-reference.md
+  - type: APIReference
+    url: https://docs.coda.co/payout/integration-guides/api-reference/initiate-a-payout-request.md
+  - type: Sandbox
+    url: https://payout.codapayments-staging.com/
+- aid: coda-payments:codashop-fulfillment-api
+  name: Codashop and Coda Webstore Fulfillment API
+  description: 'The publisher-implemented JSON-RPC fulfillment contract Coda calls
+    to deliver purchases made on Codashop and Coda-powered web stores: a Validation
+    API request (verify the player/user id), a Top-Up API request (deliver the SKU),
+    a UserSync API request, and an optional Fetch Server List request. Requests carry
+    an HMAC-SHA256 signature computed over an ordered field concatenation with a shared
+    secret key.'
+  humanURL: https://docs.coda.co/codashop-and-distribution/integration-guides.md
+  baseURL: https://docs.coda.co/codashop-and-distribution/integration-guides.md
+  tags:
+  - Fulfillment
+  - JSON-RPC
+  - Gaming
+  properties:
+  - type: Documentation
+    url: https://docs.coda.co/codashop-and-distribution/integration-guides.md
+  - type: Authentication
+    url: https://docs.coda.co/codashop-and-distribution/integration-guides/authorization.md
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/coda-payments-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/coda-payments-stock
+  url: https://www.coda.co/
+- type: DeveloperPortal
+  url: https://docs.coda.co/
+- type: Documentation
+  url: https://docs.coda.co/explore-our-products-and-services.md
+- type: APIReference
+  url: https://docs.coda.co/codapay/references.md
+- type: GettingStarted
+  url: https://docs.coda.co/codapay/getting-started.md
+- type: Support
+  url: https://docs.coda.co/references/contact-us.md
+- type: Blog
+  url: https://www.coda.co/blog/
+- type: GitHubOrganization
+  url: https://github.com/codapayments
+- type: SignUp
+  url: https://portal.coda.co/signup
+- type: Login
+  url: https://portal.coda.co/
+- type: TermsOfService
+  url: https://www.coda.co/terms-conditions/
+- type: PrivacyPolicy
+  url: https://www.coda.co/privacy-policy/
+- type: Compliance
+  url: https://www.coda.co/security/
+- type: ChangeLog
+  url: https://docs.coda.co/changelog/2024-codapay-changelog.md
+- type: LLMsTxt
+  url: llms/coda-payments-llms.txt
+- type: Authentication
+  url: authentication/coda-payments-authentication.yml
+- type: Conventions
+  url: conventions/coda-payments-conventions.yml
+- type: Idempotency
+  url: conventions/coda-payments-conventions.yml
+- type: ErrorCatalog
+  url: errors/coda-payments-error-codes.yml
+- type: DeclineCodes
+  url: errors/coda-payments-decline-codes.yml
+- type: Lifecycle
+  url: lifecycle/coda-payments-lifecycle.yml
+- type: StatusPage
+  url: https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/channel-status.md
+- type: ChangeLog
+  url: changelog/coda-payments-changelog.yml
+- type: Sandbox
+  url: sandbox/coda-payments-sandbox.yml
+- type: Conformance
+  url: conformance/coda-payments-conformance.yml
+- type: Packages
+  url: packages/coda-payments-packages.yml
+- type: SDKs
+  url: packages/coda-payments-packages.yml
+- type: Components
+  url: components/coda-payments-components.yml
+- type: DataModel
+  url: data-model/coda-payments-data-model.yml
+- type: Webhooks
+  url: asyncapi/coda-payments-webhooks.yml
+- type: VulnerabilityDisclosure
+  url: security/coda-payments-vulnerability-disclosure.yml
+- type: Security
+  url: https://www.coda.co/policy/coda-payments-vulnerability-disclosure-policy
+- type: TrustCenter
+  url: security/coda-payments-trust-center.yml
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v1

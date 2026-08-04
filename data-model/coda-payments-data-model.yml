@@ -1,0 +1,135 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/
+note: >-
+  Derived from the published object references rather than from OpenAPI $refs — Coda
+  publishes no machine-readable specification. Every entity and field below appears in the
+  documentation pages cited; nothing is inferred beyond the relationships the docs state.
+entities:
+- name: Transaction
+  api: Codapay Hosted Payment Page API
+  id_field: txnId
+  id_shape: 19-digit numeric
+  fields:
+  - {name: txnId, type: integer, description: Coda transaction id, 0 when initiation failed}
+  - {name: orderId, type: string, description: Partner's unique identifier, 4-64 characters}
+  - {name: country, type: string, description: ISO 3166 country code}
+  - {name: currency, type: string, description: ISO 4217 currency code}
+  - {name: payType, type: string, description: Payment channel id, or 0 for the channel selection page / 1 for the DCB page}
+  - {name: projectId, type: string, description: Title product identifier, mandatory in v2.0}
+  - {name: redirectUrl, type: string, description: Checkout session URL the shopper is sent to}
+  - {name: resultCode, type: integer, description: 0 on success, otherwise an error code}
+  docs: https://docs.coda.co/codapay/hosted-payment-page-integration/initiate-a-payment-request.md
+- name: Item
+  api: Codapay Hosted Payment Page API
+  fields:
+  - {name: code, type: string, description: Partner-side item code}
+  - {name: name, type: string, description: Item name, latin characters only}
+  - {name: price, type: number, description: Item price inclusive of tax in the request currency}
+  - {name: skuImageUrl, type: string, description: Publicly reachable SKU image shown on checkout}
+- name: Profile
+  api: Codapay Hosted Payment Page API
+  description: Key/value entries describing the purchasing user.
+  keys: [user_id, in_frame_redirect, return_url, need_mno_id, email, client_ip, lang_code]
+- name: Charge
+  api: Codapay Direct Card API
+  id_field: id
+  fields:
+  - {name: id, type: string, description: Coda's unique identifier for the charge}
+  - {name: amount_value, type: string, description: Amount in the smallest currency unit}
+  - {name: amount_currency, type: string, description: ISO 4217 currency code, local currency only}
+  - {name: partner_reference, type: string, description: Partner's unique identifier for the charge}
+  - {name: item_code, type: string}
+  - {name: item_name, type: string}
+  - {name: partner_custom_data, type: object, description: Partner metadata stored and returned on the charge}
+  - {name: status, type: string, description: One of the eight documented charge statuses}
+  docs: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/get-charge-data.md
+- name: ShopperAgent
+  api: Codapay Direct Card API
+  description: Shopper environment data submitted with a charge, used for 3DS and fraud scoring.
+  fields: [ip_address, user_agent, timezone, screen_height, screen_width, color_depth, accept_header, fraud_metadata]
+- name: PaymentMethod
+  api: Codapay Direct Card API / Tokenization API 2.0
+  description: The shopper's preferred payment instrument (card, digital wallet).
+  docs: https://docs.coda.co/codapay/archived-tokenization-api-2.0/integration-guide/payment-method.md
+- name: Setting
+  api: Codapay Direct Card API
+  description: Per-charge settings object carrying the default language and the webhook URL.
+  fields: [default language, webhook_url, partner_webhook_url]
+- name: Tax
+  api: Codapay Direct Card API
+  description: >-
+    Tax information on a charge. A Calculate Tax endpoint returns the tax breakdown and
+    updated price for a country/area; on the Hosted Payment Page the v2.0
+    isTaxInclusiveAmount flag controls whether item totals already include tax (US only).
+  docs: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/calculate-tax.md
+- name: Refund
+  api: Codapay Refund API
+  id_field: id
+  fields:
+  - {name: id, type: string}
+  - {name: txn_id, type: string, description: 19-digit transaction or charge id being refunded}
+  - {name: status_code, type: string, description: accepted, succeeded or failed}
+  - {name: type, type: string, description: Refund type, e.g. full}
+  - {name: amount_value, type: string}
+  - {name: amount_currency, type: string}
+  - {name: customer_email, type: string}
+  - {name: created_at, type: string}
+  - {name: finalized_at, type: string}
+  docs: https://docs.coda.co/codapay/additional-features/refund-a-payment/create-a-refund.md
+- name: Shopper
+  api: Codapay Tokenization API 2.0 (archived)
+  id_field: Shopper ID
+  description: The customer making the purchase, identified by a unique Shopper ID.
+  docs: https://docs.coda.co/codapay/archived-tokenization-api-2.0/integration-guide/shopper.md
+- name: Token
+  api: Codapay Tokenization API 2.0 (archived)
+  description: >-
+    A random alphanumeric string unique to a specific payment method supplied by the
+    shopper, used for tokenized and single-click charging.
+  docs: https://docs.coda.co/codapay/archived-tokenization-api-2.0/integration-guide/token.md
+- name: Payout
+  api: Coda Payout API
+  fields:
+  - {name: request_id, type: string, description: Merchant-created idempotent request identifier}
+  - {name: payout_method, type: object}
+  - {name: amount, type: object}
+  - {name: country_code, type: string, description: 2-letter ISO 3166 code}
+  - {name: purpose, type: string, enum: [revenue_share, salaries, payment_for_suppliers]}
+  - {name: reference, type: string, description: Free text up to 255 characters, shown to the beneficiary where supported}
+  docs: https://docs.coda.co/payout/integration-guides/api-reference/initiate-a-payout-request.md
+- name: Title
+  api: Coda Portal
+  description: >-
+    A game or app registered on the portal. Titles carry title products (per-country brand
+    or name variants), pricing information, SKUs and per-country payment configuration.
+  docs: https://docs.coda.co/codashop-and-distribution/add-your-title-app.md
+- name: SKU
+  api: Coda Portal
+  description: An inventory item within a title, submitted individually, bulk-uploaded, or imported from Google Play.
+  docs: https://docs.coda.co/codashop-and-distribution/submit-inventory-skus-details.md
+- name: Event
+  api: Codapay webhooks
+  description: The notification envelope carrying an event type plus the affected shopper, token or charge object.
+  see: asyncapi/coda-payments-webhooks.yml
+relationships:
+- {from: Transaction, to: Item, type: has_many, via: initRequest.items}
+- {from: Transaction, to: Profile, type: has_one, via: initRequest.profile}
+- {from: Transaction, to: Refund, type: has_many, via: txn_id}
+- {from: Transaction, to: Title, type: belongs_to, via: apiKey/projectId}
+- {from: Charge, to: ShopperAgent, type: has_one, via: shopper_agent}
+- {from: Charge, to: PaymentMethod, type: has_one, via: payment_method}
+- {from: Charge, to: Setting, type: has_one, via: setting}
+- {from: Charge, to: Tax, type: has_one, via: tax}
+- {from: Charge, to: Refund, type: has_many, via: txn_id}
+- {from: Charge, to: Event, type: has_many, via: webhook_url}
+- {from: Token, to: Shopper, type: belongs_to, via: Shopper ID}
+- {from: Token, to: PaymentMethod, type: has_one, via: payment method reference}
+- {from: Charge, to: Token, type: belongs_to, via: token, note: tokenized charges only}
+- {from: Title, to: SKU, type: has_many, via: title product}
+- {from: Payout, to: Transaction, type: none, note: Payouts are a separate money-out product, not linked to a payin transaction}
+id_prefixes:
+  note: >-
+    Coda uses no typed id prefixes (no cus_/ch_ style). Transaction and charge ids are
+    19-digit numeric strings; refunds and tokens use opaque alphanumeric identifiers.
+render: null

@@ -1,0 +1,77 @@
+generated: '2026-08-04'
+method: searched
+source: https://docs.coda.co/
+note: >-
+  Coda Payments ships first-party client SDKs but publishes none of them to a public
+  package registry. Registry probes on 2026-08-04: npm search "codapay" returned 0
+  results and no first-party package under any "coda payments" search; PyPI
+  /pypi/codapayments/json returned 404; Maven Central search "codapayments" returned 0
+  documents; the github.com/codapayments organisation exists but has 0 public
+  repositories. Every SDK below is distributed from Coda's own documentation or the
+  Publisher Portal.
+registry_probes:
+- {registry: npm, query: codapay, results: 0, date: '2026-08-04'}
+- {registry: pypi, package: codapayments, status: 404, date: '2026-08-04'}
+- {registry: maven-central, query: codapayments, results: 0, date: '2026-08-04'}
+- {registry: github, org: codapayments, public_repos: 0, date: '2026-08-04'}
+packages:
+- language: javascript
+  name: CodaCard SDK
+  registry: vendor-hosted
+  distribution: script loaded on the merchant checkout page
+  official: true
+  description: >-
+    Client-side JavaScript library that injects secure, PCI-compliant card input fields
+    into the merchant checkout page. Exposes CodaCard(), .components({clientSecret,
+    appearance}) and component lifecycle/event handlers; the clientSecret is the JWT
+    returned by the backend charge creation.
+  url: https://docs.coda.co/codapay/hosted-component-integration/cards/interact-with-the-codacard-sdk.md
+- language: javascript
+  name: CodaComponent SDK
+  registry: vendor-hosted
+  distribution: script loaded on the merchant checkout page
+  official: true
+  description: >-
+    Client-side JavaScript library for embedding alternative payment methods (e-wallets,
+    carrier billing, bank transfer, OTC) as hosted components in the merchant's own
+    checkout.
+  url: https://docs.coda.co/codapay/hosted-component-integration/alternative-payment-methods/interact-with-the-codacomponent-sdk.md
+- language: csharp
+  platform: Unity
+  name: CodaUnitySDK
+  artifact: CodaUnitySDK.unitypackage
+  registry: publisher-portal
+  distribution: >-
+    "Download the latest CodaUnitySDK.unitypackage from the Coda Developer Portal", then
+    Assets > Import Package > Custom Package in Unity.
+  official: true
+  compatibility:
+    unity: Unity 2020.3 LTS to Unity 6.0 LTS
+    platforms: [Android]
+    min_android_sdk: 26
+  url: https://docs.coda.co/codapay/in-app-payments/unity-native-integration/quick-start.md
+- language: csharp
+  platform: Unity
+  name: Coda in Unity IAP
+  registry: unity
+  distribution: >-
+    Coda's direct-to-consumer commerce solution is available through the Unity In-App
+    Purchasing SDK (announced for Unity IAP 5.4), giving Unity developers access to Coda's
+    payment methods without a separate Coda SDK import.
+  official: true
+  first_party: false
+  note: Distributed by Unity, integration built with Coda.
+  url: https://www.coda.co/product/codapay/
+- language: javascript
+  name: Coda Fraud JavaScript
+  registry: vendor-hosted
+  distribution: script loaded on the merchant checkout page
+  official: true
+  description: >-
+    Fraud-signal collection script; the Direct Card API accepts the resulting
+    shopper_agent.fraud_metadata JSON object on a charge.
+  url: https://docs.coda.co/codapay/direct-api-integration/direct-api-integration-for-cards/submit-a-charge.md
+gaps:
+- No server-side SDK is published for any language (no Node, Python, PHP, Java, Go, Ruby or .NET client).
+- Nothing is published to npm, PyPI, Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist or crates.io.
+- The github.com/codapayments organisation is empty, so no SDK source is publicly readable.

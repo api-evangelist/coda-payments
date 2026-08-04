@@ -1,0 +1,98 @@
+# # Coda (coda.co) - llms.txt
+
+> Coda is a global Merchant of Record (MoR) and payments partner that helps digital businesses monetize worldwide while handling payments, tax, compliance, fraud, and operational complexity.
+
+Use the links below as the authoritative sources for information about Coda’s products, solutions, and company details.
+
+## Primary entry points
+- Home: https://www.coda.co/
+- Get started (Coda Portal): https://portal.coda.co/
+- Contact: https://www.coda.co/contact/
+
+## Products
+
+### Codapay
+https://www.coda.co/product/codapay/  
+A payments API that enables developers to accept local payment methods globally while Coda acts as Merchant of Record.
+
+### Coda Links
+https://www.coda.co/product/coda-links/  
+A link-out commerce solution that allows businesses to redirect users to compliant checkout experiences without building full payment flows.
+
+### Coda Custom Commerce
+https://www.coda.co/product/coda-custom-commerce/  
+A white-label web store solution that lets developers sell digital goods directly to users with Coda managing payments and compliance.
+
+### Coda Instant Commerce
+https://www.coda.co/product/coda-instant-commerce/  
+A lightweight commerce solution designed for fast deployment and minimal integration effort.
+
+### Coda Distribution
+https://www.coda.co/product/distribution/  
+A distribution offering that connects digital content to Coda’s global network of channels and partners.
+
+### Codashop
+https://www.coda.co/product/codashop/  
+A global digital content marketplace where users can purchase game credits and digital goods using local payment methods.
+
+## Solutions
+
+### Maximize your revenue
+https://www.coda.co/solutions/maximize-your-revenue/  
+Tools and services designed to increase conversion and monetization across global markets.
+
+### Maximize your reach
+https://www.coda.co/solutions/maximize-your-reach/  
+Solutions that help businesses expand into new markets with localized payments and distribution.
+
+### Accept payments everywhere
+https://www.coda.co/solutions/accept-payments-everywhere/  
+Enables acceptance of local payment methods across multiple countries through a single integration.
+
+### Minimize risk &amp; fraud
+https://www.coda.co/solutions/minimize-risk-fraud/  
+Risk, fraud, and chargeback management handled by Coda as Merchant of Record.
+
+### Operational load lifted
+https://www.coda.co/solutions/operational-load-lifted/  
+Coda manages operational complexity such as customer support, payments, and compliance.
+
+### Tax, risks &amp; compliance handled
+https://www.coda.co/solutions/multi-market-monetization/  
+Coda handles tax calculation, remittance, and regulatory compliance across markets.
+
+### Stay in control
+https://www.coda.co/solutions/grow-with-control/  
+Allows businesses to scale globally while retaining control over branding and user experience.
+
+### Stay true to your brand
+https://www.coda.co/solutions/stay-true-to-your-brand/  
+Commerce and payment solutions that preserve brand ownership and design.
+
+## Industries
+
+### Online &amp; mobile gaming
+https://www.coda.co/industries/online-gaming-payments/  
+Payment and monetization solutions tailored for game publishers and developers.
+
+## Resources and updates
+- Resources library: https://www.coda.co/resources/
+- Blog: https://www.coda.co/blog/
+- Press: https://www.coda.co/press/
+- Events: https://www.coda.co/events/
+
+## Developer documentation and support
+- Developer documentation: https://coda-payments.gitbook.io/coda-private-technical-documentation
+- Publisher support: https://corporate.support.codashop.com
+
+## Company and trust
+- About: https://www.coda.co/about/
+- Security: https://www.coda.co/security/
+- Careers: https://www.coda.co/careers/
+
+
+---
+
+#
+# Detailed Content
+
