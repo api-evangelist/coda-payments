@@ -88,6 +88,11 @@ apis:
   tags:
   - Payments
   - Cards
+  - 3D
+  - Refunds
+  tags_raw:
+  - Payments
+  - Cards
   - 3DS
   - Refunds
   properties:
@@ -105,6 +110,10 @@ apis:
   humanURL: https://docs.coda.co/payout/overview.md
   baseURL: https://payout.codapayments.com
   tags:
+  - Payouts
+  - Disbursements
+  - Cross-Border
+  tags_raw:
   - Payouts
   - Disbursement
   - Cross-Border
