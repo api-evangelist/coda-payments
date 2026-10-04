@@ -46,7 +46,21 @@ specificationVersion: '0.23'
 created: '2026-08-02'
 modified: '2026-08-04'
 image: https://www.coda.co/wp-content/uploads/2024/11/Landscape.jpg
+x-docs-platform: gitbook
+x-docs-platform-confidence: high
+x-docs-platform-checked: 2026-09-24
 tags:
+- Company
+- Payments
+- Merchant of Record
+- Gaming
+- Digital Goods
+- Carrier Billing
+- Digital Wallet
+- Payouts
+- Southeast Asia
+- Monetization
+tags_raw:
 - Company
 - Payments
 - Merchant of Record
