@@ -64,5 +64,110 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Coda Payments is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/coda-payments-stock
+Coda Payments (trading as Coda, coda.co) is a Singapore-headquartered global Merchant of Record and monetization platform for digital content publishers, game studios and app developers. Its Codapay API lets partners accept 300+ local and global payment methods — cards, e-wallets, direct carrier billing, bank transfer, over-the-counter and vouchers — across 65+ countries and 60 currencies through a single integration, with Coda taking on Merchant of Record responsibility for tax, regulatory compliance, fraud and chargebacks. The developer surface spans the Codapay Hosted Payment Page API (v1.0/v2.0), a Direct Card API for server-to-server card charges with 3DS, hosted client-side components (CodaCard and CodaComponent JS SDKs), a Unity in-app payments SDK, a Refund API, a Payout API for cross-border disbursement, and the Codashop / Coda Webstore fulfillment APIs (validation, top-up, user sync) that publishers implement so Coda can deliver purchased items into their games.
+
+**Areas:** Company · Payments · Merchant of Record · Gaming · Digital Goods · Carrier Billing · Digital Wallet · Payouts · Southeast Asia · Monetization
+
+## Coda Payments on APIs.io
+
+Everything profiled for Coda Payments is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/coda-payments/](https://apis.io/providers/coda-payments/)** — or go straight to one of the APIs or properties below.
+
+### APIs (4)
+
+- [Codapay Hosted Payment Page API](https://apis.io/apis/coda-payments/codapay-hosted-payment-page/) — Initiate a payment request, redirect the shopper to Coda's hosted payment page, receive the transaction completion notification, and check transaction…
+- [Codapay Direct Card API](https://apis.io/apis/coda-payments/codapay-direct-card-api/) — Server-to-server card acquiring: submit a charge, retrieve charge data, calculate tax, handle 3DS, and create refunds. Authenticated with an Authorization…
+- [Coda Payout API](https://apis.io/apis/coda-payments/coda-payout-api/) — Cross-border payout API for disbursing funds to beneficiaries in local currency across markets including Brazil, Colombia, Egypt, India, Indonesia, Mexico,…
+- [Codashop and Coda Webstore Fulfillment API](https://apis.io/apis/coda-payments/codashop-fulfillment-api/) — The publisher-implemented JSON-RPC fulfillment contract Coda calls to deliver purchases made on Codashop and Coda-powered web stores: a Validation API…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Coda Payments Webhooks](https://apis.io/asyncapis/coda-payments/coda-payments-webhooks/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Coda Payments Authentication](https://apis.io/security/coda-payments/coda-payments-authentication/)
+- [Coda Payments Domain Security](https://apis.io/security/coda-payments/coda-payments-domain-security/)
+- [Coda Payments Trust Center](https://apis.io/security/coda-payments/coda-payments-trust-center/)
+- [Coda Payments Vulnerability Disclosure](https://apis.io/security/coda-payments/coda-payments-vulnerability-disclosure/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.coda.co/)
+- [Documentation](https://docs.coda.co/explore-our-products-and-services.md)
+- [Getting started](https://docs.coda.co/codapay/getting-started.md)
+- [API reference](https://docs.coda.co/codapay/references.md)
+- [Sign up](https://portal.coda.co/signup)
+- [Support](https://docs.coda.co/references/contact-us.md)
+- [Changelog](https://docs.coda.co/changelog/2024-codapay-changelog.md)
+- [Blog](https://www.coda.co/blog/)
+- [Security](https://www.coda.co/policy/coda-payments-vulnerability-disclosure-policy)
+- [Compliance](https://www.coda.co/security/)
+- [Terms of service](https://www.coda.co/terms-conditions/)
+- [Privacy policy](https://www.coda.co/privacy-policy/)
+- [GitHub](https://github.com/codapayments)
+- [Status](https://docs.coda.co/codapay/integration-guides/payment-channel-info/payment-channel-update/channel-status.md)
+
+## API Evangelist rating
+
+**Kin Score 53.6** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 78.6 |
+| Contract quality | 39.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 52.6 |
+| Developer ergonomics | 71.4 |
+| Access clarity | 50.0 |
+
+**Agent readiness 25.9** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 37.5** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/coda-payments/](https://apis.io/providers/coda-payments/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Coda Payments: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/coda-payments/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
